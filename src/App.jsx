@@ -17,6 +17,25 @@ const keltKonumlari = [
   "10. Nihai Sonuç"
 ];
 
+// YENİ: Doğum tarihine göre burç hesaplayan yardımcı fonksiyon
+const burcHesapla = (tarihStr) => {
+  if (!tarihStr) return "Koç";
+  const [yil, ay, gun] = tarihStr.split('-').map(Number);
+  
+  if ((ay === 3 && gun >= 21) || (ay === 4 && gun <= 20)) return "Koç";
+  if ((ay === 4 && gun >= 21) || (ay === 5 && gun <= 20)) return "Boğa";
+  if ((ay === 5 && gun >= 21) || (ay === 6 && gun <= 21)) return "İkizler";
+  if ((ay === 6 && gun >= 22) || (ay === 7 && gun <= 22)) return "Yengeç";
+  if ((ay === 7 && gun >= 23) || (ay === 8 && gun <= 22)) return "Aslan";
+  if ((ay === 8 && gun >= 23) || (ay === 9 && gun <= 22)) return "Başak";
+  if ((ay === 9 && gun >= 23) || (ay === 10 && gun <= 22)) return "Terazi";
+  if ((ay === 10 && gun >= 23) || (ay === 11 && gun <= 21)) return "Akrep";
+  if ((ay === 11 && gun >= 22) || (ay === 12 && gun <= 21)) return "Yay";
+  if ((ay === 12 && gun >= 22) || (ay === 1 &&-21 && gun <= 19)) return "Oğlak"; // ya da genel Ocak
+  if ((ay === 1 && gun >= 20) || (ay === 2 && gun <= 18)) return "Kova";
+  return "Balık";
+};
+
 export default function App() {
   const [acilimTuru, setAcilimTuru] = useState(null);
   const [secilenKartlar, setSecilenKartlar] = useState([]);
@@ -24,10 +43,12 @@ export default function App() {
   const [yukleniyorMu, setYukleniyorMu] = useState(false);
 
   const [kullaniciAdi, setKullaniciAdi] = useState("");
-  const [kullaniciBurcu, setKullaniciBurcu] = useState("Koç");
-  const [dogumTarihi, setDogumTarihi] = useState(""); // YENİ: Doğum Tarihi State'i
-  const [dogumSaati, setDogumSaati] = useState("");   // YENİ: Doğum Saati State'i
+  const [dogumTarihi, setDogumTarihi] = useState("");
+  const [dogumSaati, setDogumSaati] = useState("");
   const [odakKonusu, setOdakKonusu] = useState("genel");
+
+  // Burcu artık doğum tarihinden otomatik türetiyoruz
+  const kullaniciBurcu = burcHesapla(dogumTarihi);
 
   const [desteRituelDurumu, setDesteRituelDurumu] = useState("bekliyor");
   const [dizilenKartSayisi, setDizilenKartSayisi] = useState(0); 
@@ -188,7 +209,7 @@ export default function App() {
 
     setYukleniyorMu(true);
     
-    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (${kullaniciBurcu} Burcu, Doğum: ${dogumTarihi || belirtilmedi} ${dogumSaati ? saat + dogumSaati : ''}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
+    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (${kullaniciBurcu} Burcu, Doğum: ${dogumTarihi || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     let kartAnalizleri = "";
 
     if (acilimTuru === 1) {
@@ -313,22 +334,21 @@ export default function App() {
               <input type="text" placeholder="Mistik bir isim..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
             </div>
 
-            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Burcunuz:</label>
-              <select value={kullaniciBurcu} onChange={(e) => setKullaniciBurcu(e.target.value)} style={inputStili}>
-                {["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"].map(b => (
-                  <option key={b} value={b} style={{backgroundColor: '#111625'}}>{b}</option>
-                ))}
-              </select>
-            </div>
-
-            {/* YENİ EKLENENALAN: Doğum Tarihi */}
+            {/* Doğum Tarihi Alanı */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Tarihiniz:</label>
               <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
             </div>
 
-            {/* YENİ EKLENEN ALAN: Doğum Saati */}
+            {/* Otomatik Algılanan Burç Göstergesi */}
+            {dogumTarihi && (
+              <div style={{ marginBottom: '15px', textAlign: 'left', padding: '10px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
+                <span style={{ color: '#c084fc', fontSize: '13px' }}>✨ Tespit Edilen Burç: </span>
+                <strong style={{ color: '#eab308', fontSize: '14px' }}>{kullaniciBurcu} Burcu</strong>
+              </div>
+            )}
+
+            {/* Doğum Saati Alanı */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz (İsteğe bağlı):</label>
               <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
