@@ -1,0 +1,938 @@
+[
+  {
+    "id": 1,
+    "isim": "Deli (The Fool)",
+    "resim": "/00-TheFool.png",
+    "genel_anlam": "Yeni başlangıçlar, masumiyet, macera ve sınırsız potansiyel.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızda mantığın ötesinde, tamamen inançla adım atmanız gereken bir dönem. Risk almaktan korkmayın, evren sizi koruyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Yalnızsanız heyecan verici, plansız ve kuralsız yeni bir flört kapıda. İlişkiniz varsa, birlikte rutinleri yıkıp çılgınca bir maceraya atılabilirsiniz.",
+      "Kariyer, Para ve Başarı": "Daha önce hiç denemediğiniz bir iş koluna girmek veya kendi işinizi kurmak için harika bir enerji. Maddi olarak plansız harcamalara dikkat edin.",
+      "Zihinsel ve Bedensel Sağlık": "Taze bir enerji, canlanma ve gençleşme hissi. Zihinsel endişelerden arınmak size çok iyi gelecek."
+    }
+  },
+  {
+    "id": 2,
+    "isim": "Büyücü (The Magician)",
+    "resim": "/01-TheMagician.png",
+    "genel_anlam": "Yaratıcılık, irade gücü, yeteneklerin açığa çıkması ve arzuları gerçeğe dönüştürme becerisi.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "İhtiyacınız olan tüm araçlar ve güç şu an elinizde. Kaderinizi kendi ellerinizle yazabilecek bir odaklanma dönemindesiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İletişim gücünüzün tavan yaptığı bir dönem. Karşı cinsi büyüleme potansiyeliniz çok yüksek. Sorunları zekayla çözme zamanı.",
+      "Kariyer, Para ve Başarı": "Yeni projeleri başlatmak, mülakatlarda harikalar yaratmak ve finansal kaynakları doğru yönetmek için mükemmel bir kart.",
+      "Zihinsel ve Bedensel Sağlık": "Zihin-beden uyumunun zirvesi. Hastalıkların şifalanması ve fiziksel olarak kendinizi çok güçlü hissetmeniz olasıdır."
+    }
+  },
+  {
+    "id": 3,
+    "isim": "Azize (The High Priestess)",
+    "resim": "/02-TheHighPriestess.png",
+    "genel_anlam": "Sezgiler, bilinçaltı, gizemler, içsel bilgelik ve sabır.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Şu an dış dünyadaki gürültüyü susturup iç sesinizi dinleme vakti. Mantığınızla çözemediğiniz her şeyin cevabı sezgilerinizde saklı.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Gizemli ve platonik aşklar gündeme gelebilir. İlişkinizde acele kararlar vermeyin, partnerinizin hislerini anlamaya çalışın.",
+      "Kariyer, Para ve Başarı": "Harekete geçmek için doğru zaman değil. Stratejik olarak kartlarınızı gizli tutun. İş ortamındaki gizli niyetlere karşı uyanık olun.",
+      "Zihinsel ve Bedensel Sağlık": "Ruhsal olarak dinlenme dönemi. Meditasyon, yoga ve spiritüel pratikler zihninizi tamamen arındıracaktır."
+    }
+  },
+  {
+    "id": 4,
+    "isim": "İmparatoriçe (The Empress)",
+    "resim": "/03-TheEmpress.png",
+    "genel_anlam": "Bereket, bolluk, doğurganlık, doğa, şefkat ve yaratıcı üretkenlik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızın en verimli ve bereketli dönemlerinden biri. Ektiğiniz tohumların karşılığını fazlasıyla alacağınız bir süreçtesiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Sevgi dolu, şefkatli ve tutkulu bir aşk. Evlilik, nişan veya bir bebek haberiyle ilişkinin taçlanması olasıdır.",
+      "Kariyer, Para ve Başarı": "Finansal büyüme, terfi ve yatırımlardan yüksek kazanç elde etme dönemi. Yaratıcı projeleriniz altın çağını yaşayacak.",
+      "Zihinsel ve Bedensel Sağlık": "Fiziksel olarak oldukça canlı, doğayla iç içe olma isteğinin arttığı bir dönem. Beslenmenize dikkat edin."
+    }
+  },
+  {
+    "id": 5,
+    "isim": "İmparator (The Emperor)",
+    "resim": "/04-TheEmperor.png",
+    "genel_anlam": "Otorite, yapı, disiplin, istikrar, kontrol ve koruyucu güç.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızın kontrolünü tamamen ele almanız gereken bir dönem. Kurallar koymalı, sınırlarınızı çizmeli ve kaosu düzenlemelisiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Güvenli, ayakları yere basan ama biraz korumacı ve baskın bir ilişki model. Partnerinizden büyük bir destek görebilirsiniz.",
+      "Kariyer, Para ve Başarı": "Liderlik pozisyonuna yükselme, patronlarla iyi ilişkiler kurma veya kendi işinizde tam bir otorite sağlama zamanı.",
+      "Zihinsel ve Bedensel Sağlık": "Disiplinli bir yaşam tarzı (düzenli uyku, katı diyet veya spor) sağlığınızı zirveye taşıyacak. Eklem ağrılarına dikkat."
+    }
+  },
+  {
+    "id": 6,
+    "isim": "Aziz (The Hierophant)",
+    "resim": "/05-TheHierophant.png",
+    "genel_anlam": "Gelenekler, ruhsal rehberlik, toplumsal kurallar, eğitim ve inanç sistemleri.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Kendi bildiğinizi okumak yerine kanıtlanmış yollardan gitme zamanı. Bilge bir akıl hocasından yardım almak kaderinizi olumlu etkileyecek.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Geleneksel, ciddi ve evliliğe giden bir ilişki yapısı. Partnerinizle ortak değerler ve inançlar etrafında kenetleneceksiniz.",
+      "Kariyer, Para ve Başarı": "Kurumsal yapılar, büyük şirketler veya akademik kurumlarda başarı. Kurallara uymak ve takım çalışması size kazandıracak.",
+      "Zihinsel ve Bedensel Sağlık": "Geleneksel tıp yöntemlerine ve doktor tavsiyelerine harfiyen uymanız gereken bir süreç. Ruhsal ibadet veya meditasyon şifa verecektir."
+    }
+  },
+  {
+    "id": 7,
+    "isim": "Aşıklar (The Lovers)",
+    "resim": "/06-TheLovers.png",
+    "genel_anlam": "Uyum, ilişkiler, büyük seçimler, değerlerin netleşmesi ve kalbi ortaklıklar.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızın dönüm noktalarından birindesiniz. Mantığınızla değil, kalbinizin en derinindeki ahlaki ve ruhsal değerlerle seçim yapmalısınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Ruh ikizi enerjisi. Karşılıklı yoğun bir çekim, tutku ve tam bir ruhsal uyum. Bekarlar için hayatlarını değiştirecek o insan kapıda.",
+      "Kariyer, Para ve Başarı": "İş ortaklıklarında tam uyum ve karlı sözleşmeler. Ancak kariyerinizde iki önemli yol arasında kalıp büyük bir seçim yapmak zorunda kalabilirsiniz.",
+      "Zihinsel ve Bedensel Sağlık": "İçsel çatışmaların bitmesiyle gelen zihinsel huzur. Kalp ve damar sağlığınıza bu dönemde ekstra özen göstermeniz iyi olabilir."
+    }
+  },
+  {
+    "id": 8,
+    "isim": "Araba (The Chariot)",
+    "resim": "/07-TheChariot.png",
+    "genel_anlam": "Zafer, irade gücü, kararlılık, kontrolü ele alma ve engelleri aşma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Karşıt güçleri kontrol altına alıp hedefinize roket hızıyla ilerleme zamanı. Kararlılığınız sayesinde hiçbir engel önünüzde duramayacak.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Aşk hayatınızda kontrolü ele alıyorsunuz. Eğer birini kazanmak istiyorsanız, cesur ve net adımlarla amacınıza ulaşacaksınız. İlişkideki sorunlar çözülüyor.",
+      "Kariyer, Para ve Başarı": "Büyük başarı, rakipleri geride bırakma ve projeleri zafere ulaştırma dönemi. İş seyahatleri veya taşınma durumları finansal kazanç getirebilir.",
+      "Zihinsel ve Bedensel Sağlık": "Yüksek motivasyon ve muazzam bir fiziksel güç. Kendinizi odaklanmış hissedeceksiniz, kas yapınızı güçlendirecek sporlar için harika zaman."
+    }
+  },
+  {
+    "id": 9,
+    "isim": "Güç (Strength)",
+    "resim": "/08-Strength.png",
+    "genel_anlam": "İçsel güç, cesaret, şefkat, sabır ve vahşi dürtüleri kontrol etme.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Kaba kuvvetle değil, sevgi, sabır ve sarsılmaz bir içsel inançla zorlukların üstesinden geleceksiniz. İçinizdeki aslanı şefkatle evcilleştirme zamanı.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkideki krizleri sabır ve şefkatle çözüyorsunuz. Partnerinize karşı duyduğunuz derin bağ ve anlayış, aranızdaki tüm buzları eritecektir.",
+      "Kariyer, Para ve Başarı": "Zorlu projelerin, baskıcı iş ortamlarının üstesinden sarsılmaz duruşunuzla geleceksiniz. Finansal zorlukları sabırlı stratejilerle aşma dönemi.",
+      "Zihinsel ve Bedensel Sağlık": "Muazzam bir bağışıklık ve direnç gücü. Kronik yorgunlukları veya hastalıkları içsel motivasyonunuz ve yüksek enerjinizle alt edeceksiniz."
+    }
+  },
+  {
+    "id": 10,
+    "isim": "Ermiş (The Hermit)",
+    "resim": "/09-TheHermit.png",
+    "genel_anlam": "İçe dönüş, yalnızlık, bilgelik arayışı, derin düşünme ve ruhsal aydınlanma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Dış dünyadaki kaostan bir süreliğine uzaklaşıp kendi içinize dönme vakti. Aradığınız tüm cevaplar dışarıda değil, tamamen kendi ruhsal bilgeliğinizde saklı.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Yalnızlığın şifalı olduğu bir dönem. İlişkiniz varsa, birbirinize alan tanımalı ve kendi bireysel alanlarınızda olgunlaşmaya odaklanmalısınız.",
+      "Kariyer, Para ve Başarı": "Acele kararlardan kaçının. Stratejinizi tek başınıza, sessizce planlayın. Maddi konulardan ziyade yaptığınız işin derinliğine odaklanma zamanı.",
+      "Zihinsel ve Bedensel Sağlık": "Zihni dinlendirmek, dijital detoks yapmak ve yalnız kalmak ruhunuza ilaç gibi gelecek. Uyku düzeninizi gözden geçirin."
+    }
+  },
+  {
+    "id": 11,
+    "isim": "Kader Çarkı (Wheel of Fortune)",
+    "resim": "/10-WheelOfFortune.png",
+    "genel_anlam": "Büyük değişim, şans, kader, dönüm noktaları ve kaçınılmaz döngüler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızda kontrolünüz dışında devasa bir şans döngüsü başlıyor. Şans rüzgarları arkanıza esiyor, hayatınızın ritmi tamamen değişecek.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Kadersel karşılaşmalar ve kadersel aşklar. Hayatınıza aniden girecek bir insan tüm ilişki bakış açınızı kökten değiştirebilir.",
+      "Kariyer, Para ve Başarı": "İş hayatında beklenmedik harika fırsatlar, ani terfiler veya piyango gibi finansal kazançlar. Tıkanan işleriniz aniden açılacak.",
+      "Zihinsel ve Bedensel Sağlık": "Kötü giden sağlık durumlarının aniden şifaya dönmesi. Hayata karşı enerjiniz ve yaşama sevinciniz tavan yapacak."
+    }
+  },
+  {
+    "id": 12,
+    "isim": "Adalet (Justice)",
+    "resim": "/11-Justice.png",
+    "genel_anlam": "Adalet, hakikat, sebep-sonuç ilişkisi, dürüstlük ve hukuki meseleler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Geçmişte ne ektiyseniz şimdi onu biçeceksiniz. Karma tıkır tıkır çalışıyor. Dürüstlükten ödün vermediğiniz sürece evren sizi haklı çıkaracaktır.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide tam bir alma-verme dengesi aranıyor. Karşılıklı saygı ve dürüstlük dönemi. Eğer haksızlığa uğradıysanız partneriniz bunu fark edip düzeltecek.",
+      "Kariyer, Para ve Başarı": "Resmi sözleşmeler, imzalar ve hukuki işlerin lehinize sonuçlanması. Finansal olarak hak ettiğiniz parayı veya maaş artışını nihayet alıyorsunuz.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel netlik ve hayatınızda bozulan dengelerin yerine oturması. Bedeninizdeki asit-baz veya su dengesine dikkat etmelisiniz."
+    }
+  },
+  {
+    "id": 13,
+    "isim": "Asılan Adam (The Hanged Man)",
+    "resim": "/12-TheHangedMan.png",
+    "genel_anlam": "Fedakarlık, yeni bir bakış açısı, duraklama, akışa bırakma ve araf hissi.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınız şu an durma noktasında gibi gelebilir ama bu bir ceza değil, olaylara tamamen farklı bir pencereden bakmanız için evrenin verdiği bir mola.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide beklentileri sıfırlama ve fedakarlık dönemi. Partnerinizle olan bağınızı çözmek için eski inatları bırakıp onun gözünden bakmayı denemelisiniz.",
+      "Kariyer, Para ve Başarı": "İşler istediğiniz hızda ilerlemiyor olabilir, yatırımlarınız bekleyebilir. Bu süreci projelerinizi gözden geçirmek ve eksikleri tamamlamak için kullanın.",
+      "Zihinsel ve Bedensel Sağlık": "Fiziksel olarak teslimiyet ve dinlenme zamanı. Zorlayıcı egzersizlerden kaçının; yoga, meditasyon ve esneme hareketleri ruhunuza çok iyi gelecektir."
+    }
+  },
+  {
+    "id": 14,
+    "isim": "Ölüm (Death)",
+    "resim": "/13-Death.png",
+    "genel_anlam": "Büyük dönüşüm, bir dönemin kapanışı, eskiyi bırakma ve kaçınılmaz yenilik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Fiziksel bir ölüm değil, hayatınızdaki miyadı dolmuş bir dönemin kesin olarak kapanışıdır. Eskiyi zorla tutmaya çalışmayın, çünkü muazzam bir yenilik doğuyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Toksik, size zarar veren bir ilişkinin bitişi veya mevcut ilişkinizde tamamen eski alışkanlıkların ölerek ilişkinin küllerinden yeniden doğması.",
+      "Kariyer, Para ve Başarı": "Eski işinizden ayrılma, kariyer yolunu tamamen değiştirme veya başarısız bir projeyi tamamen çöpe atıp sıfırdan harika bir işe başlama dönemi.",
+      "Zihinsel ve Bedensel Sağlık": "Eski zararlı alışkanlıkları (sigara, kötü beslenme vb.) tamamen hayatınızdan söküp atma zamanı. Hücresel bir yenilenme ve detoks süreci."
+    }
+  },
+  {
+    "id": 15,
+    "isim": "Denge (Temperance)",
+    "resim": "/14-Temperance.png",
+    "genel_anlam": "Denge, uyum, sabır, simya, orta yolu bulma ve şifa.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızdaki zıtlıkları bir araya getirip mucizevi bir uyum yakalayacaksınız. Aşırılıklardan kaçının, sakin ve dengeli adımlar kaderinizi güzelleştirecek.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Huzurlu, kavgasız ve tam bir ruhsal anlayış içeren ilişki dönemi. Tartışmalar yerini derin bir uzlaşıya ve şifalanmaya bırakıyor.",
+      "Kariyer, Para ve Başarı": "Finansal olarak dengeli harcama ve birikim dönemi. İş ortamında diplomatik başarınız sayesinde krizleri yöneterek takdir toplayacaksınız.",
+      "Zihinsel ve Bedensel Sağlık": "Bedeninizin ve ruhunuzun tam bir şifa döngüsüne girmesi. Kimyasal takviyeler yerine dengeli beslenme ve temiz su tüketimi sağlığınızı toparlayacak."
+    }
+  },
+  {
+    "id": 16,
+    "isim": "Şeytan (The Devil)",
+    "resim": "/15-TheDevil.png",
+    "genel_anlam": "Bağımlılıklar, materyalizm, gölge yönler, tutsaklık ve aşırı dünyevi arzular.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Kendi kendinizi kısıtladığınız, korkularınıza veya dünyevi zevklere tutsak olduğunuz bir dönem. Zincirleriniz aslında gevşek, özgürleşmek sizin elinizde.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Aşırı tutkulu, takıntılı, kıskançlık dolu veya toksik bir ilişki enerjisi. Mantığı gölgeleyen bu yoğun çekime karşı dikkatli olmalısınız.",
+      "Kariyer, Para ve Başarı": "Maddi hırsların, paraya olan aşırı düşkünlüğün sizi köleleştirmesine izin vermeyin. İş ortamındaki manipülasyonlara ve etik dışı tekliflere dikkat.",
+      "Zihinsel ve Bedensel Sağlık": "Bağımlılıklardan (alkol, şeker, tütün, sosyal medya) arınmanız gereken en kritik dönem. Zihinsel takıntılar fiziksel yorgunluğa sebep olabilir."
+    }
+  },
+  {
+    "id": 17,
+    "isim": "Yıkılan Kule (The Tower)",
+    "resim": "/16-TheTower.png",
+    "genel_anlam": "Ani sarsıcı değişim, illüzyonların yıkılması, kriz ve özgürleşme.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Yalanlar ve çürük temeller üzerine kurduğunuz ne varsa aniden yıkılacak. Bu sarsıntı canınızı yakabilir ama sizi sahte olan her şeyden tamamen özgürleştirecek.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Gerçeklerin aniden ortaya çıkmasıyla yaşanan şok edici bir ayrılık veya ilişkideki saklanan büyük bir sırrın patlak vermesi. Temiz bir sayfa için yıkım şarttır.",
+      "Kariyer, Para ve Başarı": "Beklenmedik bir iş kaybı, projenin iptali veya ani bir finansal kriz. Bu durum sizi yıkmasın, çünkü çok daha sağlam bir kariyer inşa etmeniz için yer açılıyor.",
+      "Zihinsel ve Bedensel Sağlık": "Ani gelişen sağlık krizlerine veya kazalara karşı ekstra dikkatli olunması gereken bir dönem. Stresi acilen hayatınızdan çıkarmalısınız."
+    }
+  },
+  {
+    "id": 18,
+    "isim": "Yıldız (The Star)",
+    "resim": "/17-TheStar.png",
+    "genel_anlam": "Umut, inanç, ruhsal şifa, yenilenme ve evrensel koruma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Karanlık dönemin bittiğinin müjdesidir. Evrenin ilahi koruması altındasınız. Geleceğe umutla bakın, dileklerinizin gerçekleşeceği bir ışık dönemi başlıyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Geçmiş kalp kırıklıklarının şifalanması. İlişkinizde tam bir güven, huzur ve saf sevgi dönemi. Bekarlar için ruhsal olarak iyileştirici bir aşk kapıda.",
+      "Kariyer, Para ve Başarı": "Yaratıcılığınızın parladığı, iş hayatında yıldızınızın yükseleceği bir süreç. İlham dolu projeleriniz üstleriniz tarafından büyük hayranlıkla karşılanacak.",
+      "Zihinsel ve Bedensel Sağlık": "Gerek zihinsel gerek bedensel olarak mucizevi bir şifalanma, gençleşme ve yüksek enerji dönemi. Ruhunuz tamamen hafifliyor."
+    }
+  },
+  {
+    "id": 19,
+    "isim": "Ay (The Moon)",
+    "resim": "/18-TheMoon.png",
+    "genel_anlam": "İllüzyonlar, korkular, net olmayan durumlar, sırlar ve rüyalar.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Önünüzü görmekte zorlandığınız, sisli bir yoldasınız. Korkularınızın sizi yanıltmasına izin vermeyin. Görünene aldanmayın, her şey göründüğü gibi olmayabilir.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Kıskançlıklar, güvensizlikler ve gizli saklı durumlar. Partnerinizle olan krizler su yüzüne çıkabilir. Netleşmeden karar vermeyin.",
+      "Kariyer, Para ve Başarı": "İş ortamında arkanızdan dönen oyunlara, dedikodulara veya net olmayan sözleşmelere dikkat edin. Finansal olarak riskli yatırımlardan tamamen uzak durun.",
+      "Zihinsel ve Bedensel Sağlık": "Bilinçaltı korkularının tetiklediği anksiyete, uyku bozuklukları veya kabuslar. Ruhunuza ağır gelen bastırılmış duygularla yüzleşmelisiniz."
+    }
+  },
+  {
+    "id": 20,
+    "isim": "Güneş (The Sun)",
+    "resim": "/19-TheSun.png",
+    "genel_anlam": "Başarı, mutluluk, canlılık, netlik, ihtişam ve hakikat.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tarot destesinin en olumlu kartıdır. Hayatınızın her alanında muazzam bir aydınlanma, neşe ve mutlak başarı dönemi başlıyor. Karanlıklar tamamen dağılıyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Saf mutluluk, coşku dolu bir aşk ve herkesin gıpta edeceği bir ilişki. Evlilik, çocuk haberi veya sevdiğinizle tam bir bütünleşme yaşayacaksınız.",
+      "Kariyer, Para ve Başarı": "Zirveye oynama zamanı! Projelerinizin ödüllendirilmesi, finansal olarak devasa bir rahatlama ve iş dünyasında büyük bir ün, saygınlık kazanma.",
+      "Zihinsel ve Bedensel Sağlık": "Kusursuz bir fiziksel sağlık, yüksek yaşam enerjisi ve zihinsel olarak tam bir berraklık. Kendinizi hiç olmadığınız kadar dinç hissedeceksiniz."
+    }
+  },
+  {
+    "id": 21,
+    "isim": "Mahkeme (Judgement)",
+    "resim": "/20-Judgement.png",
+    "genel_anlam": "Uyanış, içsel çağrı, geçmişle hesaplaşma, büyük kararlar ve kefaret.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızda büyük bir vicdani ve ruhsal uyanış dönemi. Geçmiş defterleri tamamen kapatıp, aldığınız derslerle geleceğe doğru büyük bir karar verme anındasınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinizde geçmişten gelen sorunların masaya yatırılması ve kesin bir çözüme kavuşması. Eski sevgililerin geri dönüşü veya nihai bir karar aşaması.",
+      "Kariyer, Para ve Başarı": "Geçmiş emeklerinizin üst düzey yöneticiler tarafından fark edilip değerlendirilmesi. Hayatınızı değiştirecek karlı ve büyük bir iş teklifi alabilirsiniz.",
+      "Zihinsel ve Bedensel Sağlık": "Geçmişten gelen kronik bir rahatsızlığın tamamen kökten şifalanması. Ruhsal olarak hafifleme, kendinizi affetmenin getirdiği zihinsel özgürlük."
+    }
+  },
+  {
+    "id": 22,
+    "isim": "Dünya (The World)",
+    "resim": "/21-TheWorld.png",
+    "genel_anlam": "Tamamlanma, bütünlük, büyük başarı, mezuniyet ve seyahatler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Büyük bir yaşam döngüsünün tam başarıyla, eksiksiz tamamlanması. Arzuladığınız her şeye ulaştığınız, evrenle tam bir bütünlük içinde olduğunuz altın dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinin nihai mutlu sona ulaşması (evlilik, yuva kurma). Bekarlar için aradıkları o mükemmel, eksiksiz aşkın hayatlarına girmesi.",
+      "Kariyer, Para ve Başarı": "Hedeflediğiniz kariyer zirvesine ulaşma, büyük bir projeyi başarıyla bitirme. Finansal olarak tam bir refah ve uluslararası iş fırsatları.",
+      "Zihinsel ve Bedensel Sağlık": "Beden ve ruh dengesinin kusursuz noktası. Kendinizi tam, eksiksiz, sağlıklı ve yaşamın merkezinde hissedeceksiniz."
+    }
+  },
+  {
+    "id": 23,
+    "isim": "Kupa Ası",
+    "resim": "/Cups01.png",
+    "genel_anlam": "Yeni saf duygular, aşk, ruhsal uyanış ve sezgisel bolluk.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Kalbiniz sevgiyle, huzurla ve ilahi bir neşeyle dolup taşıyor. Hayatınızına duygusal olarak muazzam bir şifa ve arınma geliyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Saf, tertemiz ve koşulsuz bir aşkın doğuşu. İlişkinizde duygusal doyumun, romantizmin ve şefkatin doruk noktası.",
+      "Kariyer, Para ve Başarı": "İçinizdeki tutkuyu yansıtan, yapmaktan büyük mutluluk duyacağınız yaratıcı ve sanatsal iş kapılarının aralanması.",
+      "Zihinsel ve Bedensel Sağlık": "Duygusal travmaların tamamen şifalanması. Kendinizi huzurlu, hafif ve dengede hissetme süreci."
+    }
+  },
+  {
+    "id": 24,
+    "isim": "Kupa İkilisi",
+    "resim": "/Cups02.png",
+    "genel_anlam": "Karşılıklı aşk, uyum, güçlü bağlar ve ruhsal ortaklık.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızda tam bir alma-verme ve ruhsal denge dönemi. Çevrenizle ve evrenle tam bir barış ve uyum halindesiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Karşılıklı ilan-ı aşk, ruh ikiziyle bütünleşme ve ilişkideki tüm anlaşmazlıkların sevgiyle çözülmesi.",
+      "Kariyer, Para ve Başarı": "Güvene dayalı, karlı ve her iki tarafın da birbirine saygı duyacağı harika bir ortaklık veya iş sözleşmesi imzalamak.",
+      "Zihinsel ve Bedensel Sağlık": "İçsel çatışmaların bitmesi, ruh ve beden dualitesinin şifa bulması ile gelen derin dinginlik."
+    }
+  },
+  {
+    "id": 25,
+    "isim": "Kupa Üçlüsü",
+    "resim": "/Cups03.png",
+    "genel_anlam": "Dostluk, topluluk kutlaması, neşe ve sosyal çevre.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Sevdiklerinizle, yakın dostlarınızla bir araya gelip hayatın güzelliklerini kutlayacağınız, sosyal olarak parlayacağınız eğlenceli bir dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Arkadaş ortamında tanışılacak yeni bir flört veya ilişkinizin arkadaş çevreniz tarafından büyük destek görmesi.",
+      "Kariyer, Para ve Başarı": "Takım çalışmasında muazzam başarı, iş yemekleri, başarı kutlamaları and ortak bir projeden gelecek toplu kazanç.",
+      "Zihinsel ve Bedensel Sağlık": "Kahkahanın, sosyalleşmenin getirdiği harika bir moral deposu. Depresif ruh halinden sıyrılıyorsunuz."
+    }
+  },
+  {
+    "id": 26,
+    "isim": "Kupa Dörtlüsü",
+    "resim": "/Cups04.png",
+    "genel_anlam": "Can sıkıntısı, fırsatları kaçırma ve içe kapanma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Elindekilerden sıkılmış, hayata karşı bıkkın bir haldesiniz. Evren size yanı başınızdan yeni bir fırsat sunuyor ama siz görmüyorsunuz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Mevcut ilişkide rutinlerden sıkılma, ilgisizlik. Bekarlar için önlerine çıkan flört adaylarını can sıkıntısıyla reddetme eğilimi.",
+      "Kariyer, Para ve Başarı": "İşte motivasyon kaybı, projelere karşı isteksizlik. Önünüze sunulan karlı bir teklifi gözünüzdeki perde yüzünden fark edemeyebilirsiniz.",
+      "Zihinsel ve Bedensel Sağlık": "Melankolik bir ruh hali, kronik isteksizlik. Kendinizi acilen silkeleyip dış dünyaya açmalısınız."
+    }
+  },
+  {
+    "id": 27,
+    "isim": "Kupa Beşlisi",
+    "resim": "/Cups05.png",
+    "genel_anlam": "Kayıp, pişmanlık, yas ve dökülenlerin arkasından ağlama.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Dökülen kayıpların arkasından yas tutuyorsunuz. Ancak arkanızı dönerseniz hala ayakta duran umutlarınız olduğunu göreceksiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Geçmiş ilişkinin acısını hala çekme, biten bir aşkın ardından yaşanan derin pişmanlık. Yasınızı yaşayın ama geleceği kaçırmayın.",
+      "Kariyer, Para ve Başarı": "Kaybedilen bir ihale veya başarısız bir yatırım yüzünden finansal moral bozukluğu. Zararın neresinden dönülse kardır.",
+      "Zihinsel ve Bedensel Sağlık": "Yoğun duygusal keder ve stresin getirdiği enerjik çöküş. Kendinizi affetmeli ve geçmişi geçmişte bırakmalısınız."
+    }
+  },
+  {
+    "id": 28,
+    "isim": "Kupa Altılısı",
+    "resim": "/Cups06.png",
+    "genel_anlam": "Nostalji, çocukluk anıları, eski dostlar ve masumiyet.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Geçmişe duyduğunuz özlemin arttığı bir dönem. Çocuksu bir masumiyetle hayatın basit zevklerine odaklamak ruhunuzu şifalandıracak.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Eski sevgilinin pişmanlıkla geri dönüşü veya çocukluk aşkıyla yeniden karşılaşma. İlişkinizde ilk günlerin o masum saf sevgisini yakalama.",
+      "Kariyer, Para ve Başarı": "Eski çalıştığınız bir şirketten veya eski bir iş ortağından gelecek nostaljik ama oldukça karlı bir iş teklifi.",
+      "Zihinsel ve Bedensel Sağlık": "Çocukluk travmalarının şifalanması, içinizdeki çocukla barışma süreci. Zihinsel olarak arınmış bir dönem."
+    }
+  },
+  {
+    "id": 29,
+    "isim": "Kupa Yedilisi",
+    "resim": "/Cups07.png",
+    "genel_anlam": "Hayaller, illüzyonlar, çok fazla seçenek ve kafa karışıklığı.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Önünüzde illüzyonlarla dolu çok fazla seçenek var. Her parıldayanı altın sanmayın. Hayal dünyasından çıkıp somut kararlar vermelisiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Aşk hayatında kafa karışıklığı, birden fazla flört adayı arasında kararsız kalma veya partnerinizi kafanızda aşırı idealize etme yanılgısı.",
+      "Kariyer, Para ve Başarı": "Çok fazla proje fikri arasında boğulma, odaklanamama. Gerçekçi olmayan, havada kalan yatırımlara karşı uyanık olun.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel odaklanma problemleri, dağınıklık. Gerçeklerle yüzleşmekten kaçınmak yerine meditasyonla zihni netleştirmelisiniz."
+    }
+  },
+  {
+    "id": 30,
+    "isim": "Kupa Sekizlisi",
+    "resim": "/Cups08.png",
+    "genel_anlam": "Terk etme, arkasını dönüp gitme, yüksek bir anlam arayışı.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Maddi olarak inşa ettiğiniz her şeyi geride bırakıp, ruhsal olarak olgunlaşmak için gecenin karanlığında kutsal bir yolculuğa çıkıyorsunuz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Artık size hiçbir duygusal besleyiciliği kalmamış bir ilişkiyi tamamen bitirip, acı da olsa arkanızı dönüp kendi yolunuza gitme kararı.",
+      "Kariyer, Para ve Başarı": "Sırf parası iyi diye katlandığınız bir işi, ruhsal tatminsizlik yüzünden istifa ederek bırakma ve yeni bir vizyon arayışı.",
+      "Zihinsel ve Bedensel Sağlık": "Duygusal yüklerden arınmak için çıkılan detoks veya seyahat süreci. Ruhsal olgunlaşma fiziksel direncinizi artıracak."
+    }
+  },
+  {
+    "id": 31,
+    "isim": "Kupa Dokuzlusu",
+    "resim": "/Cups09.png",
+    "genel_anlam": "Dilek kartı, memnuniyet, konfor ve doyum.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tarotun dilek kartıdır. En çok istediğiniz şey her neyse gerçekleşmek üzere. Hayatın sunduğu tüm zevklerin tadını çıkarma zamanı.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Duygusal olarak tam bir doyum, mutluluk ve ilişkide özgüven patlaması. Bekarlar için tamamen arzuladıkları gibi bir partnerin gelişi.",
+      "Kariyer, Para ve Başarı": "Finansal olarak refah, lüks harcamalar yapabilecek güce ulaşma and iş yerinde pozisyonunuzdan tam memnuniyet.",
+      "Zihinsel ve Bedensel Sağlık": "Yaşam sevincinin zirvesi. Ancak yeme-içmeye, alkol veya şeker tüketimine aşırı kaçma eğilimine karşı dikkatli olun."
+    }
+  },
+  {
+    "id": 32,
+    "isim": "Kupa Onlusu",
+    "resim": "/Cups10.png",
+    "genel_anlam": "Aile saadeti, duygusal bütünlük, huzur ve kalıcı mutluluk.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Gökkuşağının altındaki o huzurlu yuvadasınız. Hayatınızın her alanında eksiksiz bir manevi tatmin, koruma ve huzur döngüsü.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Mutlu, kalıcı, çocuklarla şenlenecek harika bir aile yuvası kurmak. İlişkideki tüm kavgaların tamamen bitip huzurun hakim olması.",
+      "Kariyer, Para ve Başarı": "İş ortamında aile gibi hissettiren sıcak ilişkiler. Finansal olarak geleceğinizi ve ailenizi tamamen güvenceye alacak karlı kazançlar.",
+      "Zihinsel ve Bedensel Sağlık": "Huzurun getirdiği kusursuz bir ruhsal sağlık. Sevildiğinizi hissetmek tüm hücrelerinizi şifalandıracak."
+    }
+  },
+  {
+    "id": 33,
+    "isim": "Kupa Prensi",
+    "resim": "/Cups11.png",
+    "genel_anlam": "Duygusal haberler, sezgisel mesajlar, sanatsal ilham ve yeni teklifler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınıza nazik, yaratıcı ve duygusal bir enerji giriyor. Sezgilerinizden veya genç birinden alacağınız mesajlar kaderinizi etkileyecek.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Tatlı flörtöz mesajlar, romantik jestler veya duygularını çekinerek açmaya çalışan yeni bir talip kapıda.",
+      "Kariyer, Para ve Başarı": "Sanatsal ve yaratıcı alanlarda yeni çıraklık fırsatları, küçük ama umut verici karlı bir projenin başlangıcı.",
+      "Zihinsel ve Bedensel Sağlık": "İçinizdeki hassas çocuğun uyandığı, duygusal olarak kendinizi şımartmak isteyeceğiniz şifalı bir dönem."
+    }
+  },
+  {
+    "id": 34,
+    "isim": "Kupa Şövalyesi",
+    "resim": "/Cups12.png",
+    "genel_anlam": "Davet, romantizm, hayallerin peşinden koşma ve duygusal teklif.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Beyaz atlı şövalyeniz kapıda. Hayatınıza büyük bir aşk, barış teklifi veya hayallerinizi gerçekleştirecek duygusal bir davet geliyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Büyük aşk ilanı, romantik bir ilişki teklifi veya mevcut ilişkide sorunları tamamen çözecek şefkatli, sevgi dolu bir adım.",
+      "Kariyer, Para ve Başarı": "İçinizdeki tutkuyu yansıtan, severek yapacağınız karlı bir ortaklık daveti veya iş anlaşması teklifi alabilirsiniz.",
+      "Zihinsel ve Bedensel Sağlık": "Ruhsal olarak tam bir doyum ve hafifleme. Kalbinizin sesini dinlemek zihinsel yorgunluğunuzu tamamen silecektir."
+    }
+  },
+  {
+    "id": 35,
+    "isim": "Kupa Kraliçesi",
+    "resim": "/Cups13.png",
+    "genel_anlam": "Şefkat, derin sezgiler, empati ve koşulsuz sevgi.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Çevrenize şifa dağıttığınız veya hayatınızdaki sezgileri çok güçlü, şefkatli bir kadından büyük bir ruhsal destek göreceğiniz korunaklı dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide empati, şefkat ve koşulsuz sevginin doruk noktası. Partnerinizle birbirinizi kelimeler olmadan anlayabileceksiniz.",
+      "Kariyer, Para ve Başarı": "İş ortamında diplomatik başarı, insan ilişkilerini şefkat ve sezgiyle yöneterek krizleri çözme ve saygınlık kazanma.",
+      "Zihinsel ve Bedensel Sağlık": "Müthiş bir ruhsal denge ve psişik yeteneklerde artış. Bilinçaltı terapileri and şifalanma için harika bir süreç."
+    }
+  },
+  {
+    "id": 36,
+    "isim": "Kupa Kralı",
+    "resim": "/Cups14.png",
+    "genel_anlam": "Duygusal olgunluk, bilgelik, kriz yönetimi ve cömertlik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Duygularınızı tamamen kontrol altına aldığınız, fırtınalı denizlerde bile tahtınızda sakinlikle oturduğunuz bilge bir olgunluk dönemi.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Güvenilir, sadık, duygusal olarak olgun ve koruyucu bir partner. İlişkinizdeki krizleri sevgi ve mantık dengesiyle yönetiyorsunuz.",
+      "Kariyer, Para ve Başarı": "İş dünyasında sakin duruşunuzla takdir toplama, krizleri ustaca yöneterek finansal istikrarı sağlama ve saygınlık.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel ve duygusal olarak tam bir ustalık dönemi. Sinir sisteminizin sakinleştiği, huzurlu bir döngü."
+    }
+  },
+  {
+    "id": 37,
+    "isim": "Tılsım Ası",
+    "resim": "/Pentacles01.png",
+    "genel_anlam": "Finansal fırsat, somut başarı, bolluk ve bereket kapısı.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Gökyüzünden bulutların arasından uzanan o altın tılsım avucunuza düşüyor. Hayatınızda somut, maddi ve kalıcı muazzam bir şans dönemi başlıyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Ayakları yere basan, güvenli, kalıcı ve ciddi bir ilişkinin başlangıcı. Mevcut ilişkinizde evlilik gibi somut adımların atılması.",
+      "Kariyer, Para ve Başarı": "Maaş artışı, yeni harika bir iş teklifi, karlı bir mülk alımı veya devasa bir yatırım fırsatı. Maddi bolluk kapınızda.",
+      "Zihinsel ve Bedensel Sağlık": "Bedensel olarak kendinizi çok güçlü, topraklanmış ve sağlıklı hissetme süreci. Kronik rahatsızlıkların somut tedavilerle şifalanması."
+    }
+  },
+  {
+    "id": 38,
+    "isim": "Tılsım İkilisi",
+    "resim": "/Pentacles02.png",
+    "genel_anlam": "Denge yönetimi, adaptasyon, finansal öncelikler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatın iki farklı alanını düşürmeden havada çevirmeye çalışıyorsunuz. Esnek olmalı, hayatın dalgalarıyla uyum içinde dans etmelisiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Aşk hayatı ile iş hayatı arasında denge kurmakta zorlanma veya iki flört adayı arasında kararsızlık süreci.",
+      "Kariyer, Para ve Başarı": "Aynı anda iki işi yürütme, gelir-gider bütçesini dengelemek için yoğun nakit akışı yönetimi. Esnek stratejiler size kazandıracak.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel olarak aşırı odak değiştirmenin yarattığı yorgunluklar. Zaman yönetimini iyi yaparak stresi azaltmalısınız."
+    }
+  },
+  {
+    "id": 39,
+    "isim": "Tılsım Üçlüsü",
+    "resim": "/Pentacles03.png",
+    "genel_anlam": "Ustalık, takım çalışması, takdir görme ve profesyonellik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Yeteneklerinizi sergilediğiniz, çevrenizdeki otoriteler tarafından takdir edildiğiniz ve hassasiyetle hayatınızı inşa ettiğiniz verimli bir dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkiyi geliştirmek için ortak emek harcama dönemi. Partnerinizle birbirinizi desteklediğiniz, saygıya dayalı olgun bir süreç.",
+      "Kariyer, Para ve Başarı": "İş yerinde harika bir takım çalışması, üst düzey patronların projenizi ayakta alkışlaması ve profesyonel ustalık sayesinde gelen finansal kazanç.",
+      "Zihinsel ve Bedensel Sağlık": "Zihin, beden ve ruh dengesini bir zanaatkar gibi ince ince işleme dönemi. Sağlık hedeflerinize ulaşıyorsunuz."
+    }
+  },
+  {
+    "id": 40,
+    "isim": "Tılsım Dörtlüsü",
+    "resim": "/Pentacles04.png",
+    "genel_anlam": "Cimrilik, kontrol sevdası, paraya sıkı sıkıya tutunma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tılsımlara ve mevcut durumunuza sıkı sıkıya sarılmış, değişime kendinizi kapatmışsınız. Aşırı korumacılık büyütmez, cömert olmalısınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide aşırı kıskançlık, partneri tamamen kontrol etme dürtüsü ve paylaşım eksikliği. Bu boğucu tavır bağınızı zedeleyebilir.",
+      "Kariyer, Para ve Başarı": "Parayı aşırı biriktirme, yatırım yapmaktan korkma, risk almama hali. İşinizde sırf güvenli diye statükoya teslim olmuş durumdasınız.",
+      "Zihinsel ve Bedensel Sağlık": "Duyguları içinde tutmanın, cimriliğin getirdiği bedensel kasılmalar, kabızlık veya kronik stres. Enerjinizi serbest bırakmalısınız."
+    }
+  },
+  {
+    "id": 41,
+    "isim": "Tılsım Beşlisi",
+    "resim": "/Pentacles05.png",
+    "genel_anlam": "Finansal zorluk, dışlanma, yoksulluk psikolojisi.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Karlı havada kilisenin önünden geçiyorsunuz ama kafanız yerde olduğu için içerideki sıcaklığı ve yardımı görmüyorsunuz. Çaresiz değilsiniz, yardım istemeyi bilin.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Birlikte maddi/manevi zorluklardan geçme, ilişkide yalnız bırakılmışlık hissi. Birbirinize sırt çevirmek yerine kenetlenme zamanı.",
+      "Kariyer, Para ve Başarı": "Geçici finansal darboğaz, iş yerinde dışlanma veya kayıplar. Yoksulluk psikolojisine teslim olmayın, çıkış kapısı çok yakınınızda.",
+      "Zihinsel ve Bedensel Sağlık": "Yetersiz beslenme veya yoğun stres kaynaklı fiziksel direnç düşüşü. Kendinizi ihmal etmeyin, şifa aramaktan çekinmeyin."
+    }
+  },
+  {
+    "id": 42,
+    "isim": "Tılsım Altılısı",
+    "resim": "/Pentacles06.png",
+    "genel_anlam": "Cömertlik, hayırseverlik, alma-verme dengesi.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Evrenin adalet terazisi tıkır tıkır çalışıyor. Maddi durumunuza göre ya büyük bir yardım alacaksınız ya da ihtiyacı olanlara cömertçe el uzatıp ödüllendirileceksiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide karşılıklı ilgi, sevgi ve fedakarlık dengesi kuruluyor. Partnerinizle aranızdaki maddi ve manevi destek bağları güçleniyor.",
+      "Kariyer, Para ve Başarı": "Beklediğiniz sponsor desteği, kredi onayı veya yatırım sermayesinin gelişi. Adil bir iş ortamında prim veya bonus alma zamanı.",
+      "Zihinsel ve Bedensel Sağlık": "Enerjinizi dengeli kullanma dönemi. Başkalarına şifa verirken kendi bedeninizi de beslemeyi unutmamanız gereken bir süreç."
+    }
+  },
+  {
+    "id": 43,
+    "isim": "Tılsım Yedilisi",
+    "resim": "/Pentacles07.png",
+    "genel_anlam": "Sabır, değerlendirme, hasat bekleme ve uzun vadeli planlar.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tılsımlarınızı ektiniz ve büyümelerini izliyorsunuz. Acele edip meyveleri koparmayın, sabırla beklemek hasadınızın devasa olmasını sağlayacaktır.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinize verdiğiniz emeklerin karşılığını alma dönemi. Süreci değerlendirip geleceğe yönelik daha köklü adımlar planlama zamanı.",
+      "Kariyer, Para ve Başarı": "Yatırımlarınızın and projelerinizin meyve verme aşaması. Durumu analiz edin, eksikleri giderin ve sabırlı olun, kazanç kapıda.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel nadas dönemi. Sabırlı ve dingin olmanın getirdiği içsel rahatlama, bedensel enerjinin yavaş ama kalıcı yükselişi."
+    }
+  },
+  {
+    "id": 44,
+    "isim": "Tılsım Sekizlisi",
+    "resim": "/Pentacles08.png",
+    "genel_anlam": "Çalışkanlık, detaylara odaklanma, zanaatkarlık ve eğitim.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tezgahınızın başına geçmiş, tılsımlarınızı ince ince işliyorsunuz. Odaklanma, çalışkanlık ve disiplin sayesinde hayatınızı harika bir düzene sokacaksınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinizi güzelleştirmek için detaylara dikkat etme, partnerinize zaman ayırma ve aranızdaki bağı ilmek ilmek sevgiyle örme dönemi.",
+      "Kariyer, Para ve Başarı": "İş hayatında muazzam bir odaklanma, mesai harcama and uzmanlaşma süreci. Gösterdiğiniz bu üstün gayret çok yakında büyük finansal başarı getirecek.",
+      "Zihinsel ve Bedensel Sağlık": "Düzenli sağlık rutinlerine (diyet, spor, vitamin takviyeleri) harfiyen uyma zamanı. Disiplin bedeninize müthiş bir şifa katacak."
+    }
+  },
+  {
+    "id": 45,
+    "isim": "Tılsım Dokuzlusu",
+    "resim": "/Pentacles09.png",
+    "genel_anlam": "Lüks, bağımsızlık, maddi başarı, konfor and kendine yetme gücü.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Kendi emeğinizle inşa ettiğiniz lüks ve güzel bahçenizdesiniz. Maddi-manevi tam bağımsızlık, konfor ve hayattan yüksek zevk alma dönemi.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Kendi kendine yetebilen, özgüveni tavan yapmış asil bir enerji. İlişkinizde partnerinize bağımlı olmak yerine bireysel alanınızın lüksünü koruyorsunuz.",
+      "Kariyer, Para ve Başarı": "Finansal zirvelerden biri. Yüksek kazanç, lüks yatırımlar, mülk edinme ve iş hayatında tam bir finansal bağımsızlık ilanı.",
+      "Zihinsel ve Bedensel Sağlık": "Kendinize yaptığınız bakımların, masajların ve kaliteli beslenmenin getirdiği harika bir fiziksel ışıltı ve zihinsel konfor."
+    }
+  },
+  {
+    "id": 46,
+    "isim": "Tılsım Onlusu",
+    "resim": "/Pentacles10.png",
+    "genel_anlam": "Miras, aile serveti, kalıcı refah, köklü gelenekler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Soylu, köklü ve güvenli bir krallığın merkezindesiniz. Hayatınıza nesiller boyu aktarılacak kalıcı bir refah, aile birliği ve sarsılmaz bir güvence geliyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Evlilik, köklü aile bağları ve her iki ailenin de onayladığı, maddi olarak çok güçlü, huzurlu bir yuva düzeni kurma kararı.",
+      "Kariyer, Para ve Başarı": "Aile şirketi kurma, büyük miras kalması, gayrimenkul yatırımlarından ömür boyu sürecek muazzam kazançlar elde etme dönemi.",
+      "Zihinsel ve Bedensel Sağlık": "Genetik şifalanma, kendinizi köklerinize ait hissetmenin getirdiği sarsılmaz içsel huzur and bedensel direnç zirvesi."
+    }
+  },
+  {
+    "id": 47,
+    "isim": "Tılsım Prensi",
+    "resim": "/Pentacles11.png",
+    "genel_anlam": "Yeni somut fikirler, finansal haberler, öğrenme isteği ve planlama.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Avucunuzdaki küçük altın tılsıma dikkatle bakıyorsunuz. Hayatınıza yeni somut fikirler, karlı başlangıç planları and finansal haberler gelmek üzere.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Geleceğe yönelik ciddi, ayakları yere basan konuşmalar veya partnerinizden alacağınız somut, güven verici bir hediye/mesaj.",
+      "Kariyer, Para ve Başarı": "Yeni bir kursa başlama, karlı bir iş alanını çıraklıkla öğrenme veya gelecekte büyüyecek küçük ama sağlam bir yatırım adımı.",
+      "Zihinsel ve Bedensel Sağlık": "Doğa yürüyüşleri, topraklanma ve bedeninize iyi bakmak için pratik, bilimsel yöntemleri hayatınıza dahil etme dönemi."
+    }
+  },
+  {
+    "id": 48,
+    "isim": "Tılsım Şövalyesi",
+    "resim": "/Pentacles12.png",
+    "genel_anlam": "Güvenilirlik, sabır, rutinler, çalışkanlık ve kalıcı ilerleme.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tarot destesinin en çalışkan, en güvenilir şövalyesidir. Acele etmeden, planlı ve ağır adımlarla ama mutlak başarıya götürecek kadersel bir süreçtesiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Sadık, sözünün eri, dürüst ve tamamen güvenebileceğiniz bir partner enerjisi. İlişkinizde macera değil, sarsılmaz bir sadakat hakim.",
+      "Kariyer, Para ve Başarı": "Disiplinli çalışma sayesinde finansal hedeflere adım adım ulaşma. Risk almadan, garantili yatırımlarla paranızı büyütme dönemi.",
+      "Zihinsel ve Bedensel Sağlık": "Rutin egzersiz ve düzenli beslenmenin şifası. İstikrarlı duruşunuz sayesinde fiziksel olarak kendinizi çok dayanıklı hissedeceksiniz."
+    }
+  },
+  {
+    "id": 49,
+    "isim": "Tılsım Kraliçesi",
+    "resim": "/Pentacles13.png",
+    "genel_anlam": "Bereket, ev hayatı, finansal zeka, şefkat ve pratik bilgelik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Evinizin hakimi, bereketin simgesisiniz. Hayatınıza finansal aklı çok güçlü, şefkatli bir kadından gelecek büyük maddi/manevi destek dönemi.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Sıcak, şefkatli, koruyucu and bereketi yüksek bir aşk. Ev hayatının konforunu artıracak, partnerinizle huzurla kenetleneceğiniz süreç.",
+      "Kariyer, Para ve Başarı": "Finansal bütçeyi dâhice yönetme, karlı yatırımları pratik zekayla büyütme and iş yerinde anaç/babacan tavırlarla saygınlık kazanma.",
+      "Zihinsel ve Bedensel Sağlık": "Sağlıklı ev yemekleri, doğal beslenme ve lüks kişisel bakımlarla bedeninizi tamamen şifalandırıp parlatacağınız dönem."
+    }
+  },
+  {
+    "id": 50,
+    "isim": "Tılsım Kralı",
+    "resim": "/Pentacles14.png",
+    "genel_anlam": "Maddi güç, finansal imparatorluk, istikrar ve mutlak refah.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Tılsım krallığınızın tahtındasınız. Dünyevi başarıların, finansal gücün ve sarsılmaz hayatsal istikrarın zirvesine ulaştığınız kadersel altın dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Korumacı, maddi olarak tamamen güvence sağlayan, sarsılmaz and ciddi bir partner. İlişkide tam bir sadakat ve gelecek emniyeti.",
+      "Kariyer, Para ve Başarı": "Büyük iş ortaklıkları, devasa yatırımlardan yüksek karlar, gayrimenkul zenginliği and iş dünyasında tam bir patron pozisyonuna yükselme.",
+      "Zihinsel ve Bedensel Sağlık": "Bedeninizin ihtiyaçlarına tam hakimiyet. Yaşamsal konforun getirdiği harika bir zihinsel sakinlik ve güçlü fiziksel bünye."
+    }
+  },
+  {
+    "id": 51,
+    "isim": "Kılıç Ası",
+    "resim": "/Swords01.png",
+    "genel_anlam": "Zihinsel netlik, büyük zafer, hakikat ve kesin kararlar.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Zihninizdeki tüm sis bulutları dağılıyor. Gerçeğin keskin kılıcı elinizde; hayatınızla ilgili ertelediğiniz o büyük kararı tam bir netlikle vereceksiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkideki yalanların bitmesi, tam bir dürüstlük dönemi. Eğer tıkanmış bir durum varsa, keskin bir konuşmayla her şeyi çözeceksiniz.",
+      "Kariyer, Para ve Başarı": "Zeka gerektiren projelerde muazzam başarı, stratejik zafer ve yeni bir iş başlangıcı. Finansal haklarınızı söke söke alacaksınız.",
+      "Zihinsel ve Bedensel Sağlık": "Anksiyete ve kafa karışıklığından kurtularak gelen zihinsel uyanış. Cerrahi operasyonların başarıyla sonuçlanması."
+    }
+  },
+  {
+    "id": 52,
+    "isim": "Kılıç İkilisi",
+    "resim": "/Swords02.png",
+    "genel_anlam": "Kararsızlık, gözleri kapatma ve denge arayışı.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "İki zor seçenek arasında kalmış, gözlerinizi gerçeklere kapatmışsınız. Karar vermeyi ertelemek çözümdür sanıyorsunuz ama mantığınızı devreye sokmalısınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkideki sorunları görmezden gelme, partnerinizle duygusal bir duvar örme hali. Gerçeklerle yüzleşmekten korkuyorsunuz.",
+      "Kariyer, Para ve Başarı": "İş hayatında iki teklif arasında sıkışıp kalma, karar verememe yüzünden projelerin sekteye uğraması.",
+      "Zihinsel ve Bedensel Sağlık": "Kararsızlığın yarattığı zihinsel blokaj ve yoğun stres. Korkularınızdan sıyrılıp mantıklı düşünmeye başlamalısınız."
+    }
+  },
+  {
+    "id": 53,
+    "isim": "Kılıç Üçlüsü",
+    "resim": "/Swords03.png",
+    "genel_anlam": "Kalp kırıklığı, ihanet, keder ve acıyla yüzleşme.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Bulutların arasından kalbinize saplanan kılıçlar var. Yoğun bir duygusal acı veya hayal kırıklığı yaşayabilirsiniz ama bu acı gözünüzü açmanız için gerekli.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İhanet, aldatılma veya ani bir ayrılık haberi. Kalbiniz kırık olsa da gerçekleri görmek sizi ileride daha güçlü kılacak.",
+      "Kariyer, Para ve Başarı": "İş ortakları tarafından yarı yolda bırakılma, karlı sanılan bir anlaşmanın hüsranla bitmesi. Finansal kayıplara karşı dikkatli olun.",
+      "Zihinsel ve Bedensel Sağlık": "Yoğun kederin tetiklediği kalp sıkışmaları veya psikolojik çöküş. Yasınızı yaşayın ama acının sizi esir almasına izin vermeyin."
+    }
+  },
+  {
+    "id": 54,
+    "isim": "Kılıç Dörtlüsü",
+    "resim": "/Swords04.png",
+    "genel_anlam": "Dinlenme, geri çekilme, zihinsel mola ve iyileşme.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Mücadeleden yoruldunuz. Şimdi kılıçları duvara asıp, zihninizi ve bedeninizi nadasa bırakma zamanı. Dinlenmek ihtiyaçtır.",
+      "Aşk, İlişkiler and Kalp Mevzuları": "İlişki tartışmalarına ara verme, sessiz kalıp düşünme dönemi. Bekarlar için aşk meclislerinden uzak durup kendiyle kalma süreci.",
+      "Kariyer, Para ve Başarı": "İş temposunu acilen yavaşlatmalısınız. Savaş alanından biraz uzaklaşıp izin kullanmak, stratejinizi yenileyecektir.",
+      "Zihinsel ve Bedensel Sağlık": "Tam bir zihinsel şifalanma dönemi. Uyku kalitenizi artırın, meditasyon yapın; bedeninizin şarj olmaya ihtiyacı var."
+    }
+  },
+  {
+    "id": 55,
+    "isim": "Kılıç Beşlisi",
+    "resim": "/Swords05.png",
+    "genel_anlam": "İçi boş zafer, hile, gurur ve çatışma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Savaşı kazandınız ama çevrenizdeki herkesi kırıp döktünüz. Bu içi boş zafer sizi yapayalnız bıraktı. Haklı olmak mı mutlu olmak mı sorusu gündemde.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Kavgaları kazanmak için partnerinizi acımasızca eleştirip kalbini kırmış olabilirsiniz. Haklı olsanız bile bağınız büyük zarar gördü.",
+      "Kariyer, Para ve Başarı": "İş yerindeki politik oyunlar, dedikodular ve rakipleri etik dışı yöntemlerle alt etme çabaları. Uzun vadede bu durum size zarar verir.",
+      "Zihinsel ve Bedensel Sağlık": "Sürekli savunmada kalmanın getirdiği zihinsel yıpranma, öfke patlamaları. İçinizdeki kini acilen serbest bırakmalısınız."
+    }
+  },
+  {
+    "id": 56,
+    "isim": "Kılıç Altılısı",
+    "resim": "/Swords06.png",
+    "genel_anlam": "Hüzünlü geçiş, sakin sulara yelken açma, seyahat.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Fırtınalı günleri geride bırakıp, kayığınızı daha sakin sulara doğru sürüyorsunuz. Geçmişin hüznü var ama gelecek çok daha huzurlu.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Toksik bir ilişkiden, sancılı süreçlerden uzaklaşma kararı. Partnerinizle el ele verip sorunlu ortamları terk etme dönemi.",
+      "Kariyer, Para ve Başarı": "Krizli iş ortamlarından ayrılıp, daha düzenli yeni bir işe geçiş süreci. Şehir değişikliği finansal rahatlık getirebilir.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel krizlerin yavaş yavaş durulması, sakinleşme. Ruhunuza iyi gelecek su kenarı seyahatleri sağlığınıza iyi gelecektir."
+    }
+  },
+  {
+    "id": 57,
+    "isim": "Kılıç Yedilisi",
+    "resim": "/Swords07.png",
+    "genel_anlam": "Strateji, gizli saklı işler, tek başına hareket etme.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Çevrenizde kurnazca hamleler yapan, arkanızdan iş çeviren birileri olabilir. Ya da siz gizli bir stratejiyle sıyrılmaya çalışıyorsunuz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide saklanan sırlar veya partnerinizin sizden gizli yürüttüğü bazı durumlar. Güven sarsıcı olaylara karşı tetikte olun.",
+      "Kariyer, Para ve Başarı": "İş ortamında fikir hırsızlıkları, kuyunuzu kazan meslektaşlar. Ticari sözleşmelerin küçük yazılarını çok dikkatli okuyun.",
+      "Zihinsel ve Bedensel Sağlık": "Suçluluk psikolojisi veya yakalanma korkusunun yarattığı içsel anksiyete. Dürüstlüğü seçmek zihninizi şifalandırır."
+    }
+  },
+  {
+    "id": 58,
+    "isim": "Kılıç Sekizlisi",
+    "resim": "/Swords08.png",
+    "genel_anlam": "Kurban psikolojisi, çaresizlik illüzyonu, zihinsel hapishane.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Gözleriniz bağlı, etrafınız kılıçlarla çevrili gibi hissediyorsunuz ama aslında ayaklarınız serbest. Sizi hapseden tek şey kendi olumsuz düşünceleriniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide kendinizi kurban gibi hissetme, çaresizce boyun eğme hali. Aslında çıkış yolunuz var ama korkularınız yüzünden göremiyorsunuz.",
+      "Kariyer, Para ve Başarı": "İş hayatında kapana kısılmışlık hissi, finansal olarak çaresiz olduğuna inanma yanılgısı. Bakış açınızı değiştirirseniz çıkış kapısını bulacaksınız.",
+      "Zihinsel ve Bedensel Sağlık": "Zihnin kendi yarattığı hapishane; yoğun anksiyete. Göz bağınızı çözmeli, olumsuz düşünce kalıplarını kırmalısınız."
+    }
+  },
+  {
+    "id": 59,
+    "isim": "Kılıç Dokuzlusu",
+    "resim": "/Swords09.png",
+    "genel_anlam": "Uykusuz geceler, kabuslar, kaygı ve suçluluk.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Geceleri yatağınızdan fırlamanıza sebep olan devasa bir kaygı sarmalındasınız. Sorunlar kafanızda büyüttüğünüz kadar büyük değil, sakinleşin.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Aşk hayatında aşırı evham, partnerinizi kaybetme korkusu veya vicdan azabı kaynaklı uykusuz geceler.",
+      "Kariyer, Para ve Başarı": "İşlerin batacağı korkusu, geleceğe yönelik aşırı finansal panik hali. Korkularınızın çoğu gerçek dışı illüzyonlardan ibaret.",
+      "Zihinsel ve Bedensel Sağlık": "Ciddi uyku bozuklukları, insomnia ve zihinsel tükenmişlik. Acilen zihni sakinleştirecek meditasyon veya destek almalısınız."
+    }
+  },
+  {
+    "id": 60,
+    "isim": "Kılıç Onlusu",
+    "resim": "/Swords10.png",
+    "genel_anlam": "Dibe vurma, kesin bitiş, sırtından bıçaklanma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Sırtınıza kılıçlar saplanmış, tamamen dibe vurmuşsunuz. Ama unutmayın; bundan daha kötüye gidemezsiniz. Ufukta yeni günün güneşi doğuyor.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Sırtınızdan bıçaklandığınız, tamamen biten sancılı bir ilişki döngüsü. Bu son, yeni ve hayırlı başlangıçlar için gerekliydi.",
+      "Kariyer, Para ve Başarı": "İş yerinde büyük haksızlık, projenin tamamen çöküşü veya iflas. Ağır bir darbe aldınız ama artık sıfırdan başlama zamanı.",
+      "Zihinsel ve Bedensel Sağlık": "Fiziksel ve zihinsel olarak tam bir çöküş hissi. Masaj sırt ağrılarınıza iyi gelebilir. Ruhsal teslimiyet şifa getirecektir."
+    }
+  },
+  {
+    "id": 61,
+    "isim": "Kılıç Prensi",
+    "resim": "/Swords11.png",
+    "genel_anlam": "Zihinsel uyanış, casusluk, merak, eleştiri ve yeni fikirler.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Çevrenizde sizi izleyen, laf taşıyan genç birisi olabilir. Zihniniz çok keskin, merakınız ve araştırma dürtünüz kaderinizi şekillendirecek.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Sosyal medyada gizlice dikizlenme (stalker), ilişkide mantık odaklı and biraz iğneleyici, eleştirel tartışmalar dönemi.",
+      "Kariyer, Para ve Başarı": "Rakipleri gizlice analiz etme, pazar araştırmalarında muazzam detaycılık ve zeka gerektiren analiz işlerinde ilk başarılar.",
+      "Zihinsel ve Bedensel Sağlık": "Aşırı şüpheci ve tetikte olmanın getirdiği zihinsel gerginlik. Olayları kişisel algılamayı bırakıp zihni rahatlatmalısınız."
+    }
+  },
+  {
+    "id": 62,
+    "isim": "Kılıç Şövalyesi",
+    "resim": "/Swords12.png",
+    "genel_anlam": "Hızlı eylem, fırtınalı giriş, mantık savaşı ve ani kararlar.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Dörtnala koşan bir kılıç şövalyesi gibi hayatınıza ani, fırtınalı ve çok hızlı bir süreç giriyor. Duyguları susturup mantıkla savaşma zamanı.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide aniden patlak veren hararetli mantık tartışmaları veya hayatınıza jet hızıyla giren, entelektüel ama biraz fevri bir flört.",
+      "Kariyer, Para ve Başarı": "Kriz anında roket hızıyla çözüm üretme, rakiplere acımasızca meydan okuma and ani kararlarla karlı sonuçlar alma.",
+      "Zihinsel ve Bedensel Sağlık": "Aşırı zihinsel hızlanma, acelecilik kaynaklı ufak tefek sakarlıklara veya strese bağlı tansiyon iniş çıkışlarına dikkat."
+    }
+  },
+  {
+    "id": 63,
+    "isim": "Kılıç Kraliçesi",
+    "resim": "/Swords13.png",
+    "genel_anlam": "Keskin zeka, dürüstlük, sınır çizme ve bağımsız duruş.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Mantığın ve dürüstlüğün zirvesindesiniz. Hayatınızdaki illüzyonları kılıcınızla kesip atacak, sınırlarınızı koruyacak sarsılmaz bağımsız bir dönemdesiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Duygusallıktan uzak, mantık ve dürüstlük arayan net bir duruş. Partnerinize sınırlarınızı sertçe çizebilirsiniz.",
+      "Kariyer, Para ve Başarı": "İş ortamında mükemmel strateji yeteneği, profesyonel mesafe koruma and dürüst analizleriniz sayesinde üstlerden tam saygı görme.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel netliğin zirvesi. Bastırılmış hüzünlerin mantıkla çözülmesi, rasyonel kararların getirdiği ruhsal hafifleme."
+    }
+  },
+  {
+    "id": 64,
+    "isim": "Kılıç Kralı",
+    "resim": "/Swords14.png",
+    "genel_anlam": "Mutlak otorite, kanun, zeka, profesyonellik ve adalet.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Kılıç imparatorluğunuzun tahtındasınız. Hayatınızın her alanında duygulara tamamen yerini kapatmış, sadece kanun, mantık ve adaletle hüküm sürdüğünüz süreç.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Duygusal jestler yerine mantık, ciddiyet, dürüstlük ve kurallar bekleyen baskın bir partner. İlişkideki sorunlar zekayla çözülüyor.",
+      "Kariyer, Para ve Başarı": "Hukuki zaferler, resmi kurumlarla karlı anlaşmalar, danışmanlık veya yöneticilik pozisyonunda tam bir profesyonel otorite sağlama.",
+      "Zihinsel ve Bedensel Sağlık": "Zihnin beden üzerinde tam kontrolü. Duygusal dalgalanmaların tamamen bitmesiyle gelen duru, berrak and sarsılmaz zihinsel güç."
+    }
+  },
+  {
+    "id": 65,
+    "isim": "Asa Ası",
+    "resim": "/Wands01.png",
+    "genel_anlam": "Yeni yaratıcı girişimler, tutku, ilham ve enerji patlaması.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "İçinizde büyük bir kıvılcım çakıyor. Harekete geçmek, yeni adımlar atmak için muazzam bir evrensel destek var. Ertelemeyi bırakın.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Yoğun bir çekim, ani başlayan tutkulu bir flört. İlişkinizde heyecanın ve aşk ateşinin yeniden alevlenmesi.",
+      "Kariyer, Para ve Başarı": "Yepyeni bir iş teklifi, taze bir girişim fikri veya cesaret gerektiren karlı bir yatırım adımı.",
+      "Zihinsel ve Bedensel Sağlık": "Yüksek motivasyon, yaşama sevinci ve bedensel olarak kendinizi ateş gibi enerjik hissetme döngüsü."
+    }
+  },
+  {
+    "id": 66,
+    "isim": "Asa İkilisi",
+    "resim": "/Wands02.png",
+    "genel_anlam": "Gelecek planlaması, ilerleme, kararlar ve keşif.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Dünya avucunuzun içinde ama konfor alanınızdan çıkıp geleceğe doğru planlı bir adım atmak zorundasınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinin geleceğine dair ciddi planlar yapma dönemi. Partnerinizle ortak bir gelecek vizyonu çizmelisiniz.",
+      "Kariyer, Para ve Başarı": "Yurtdışı bağlantılı işler, uzun vadeli stratejik ortaklıklar ve büyüme planları için harika süreç.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel olarak ufkunuzun açılması, geleceğe yönelik kaygıların yerini planlı bir sakinliğe bırakması."
+    }
+  },
+  {
+    "id": 67,
+    "isim": "Asa Üçlüsü",
+    "resim": "/Wands03.png",
+    "genel_anlam": "Beklenti, gemilerin yola çıkması, ticaret.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Ektiğiniz tohumlar büyüyor, yaptığınız hamlelerin sonuçlarını almak üzeresiniz. Gemileriniz ufukta göründü.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Uzaktan gelecek bir aşk haberi veya partnerinizle birlikte uzun vadeli ve vizyoner adımlar atma zamanı.",
+      "Kariyer, Para ve Başarı": "İşlerin büyümesi, yeni pazarlara açılma ve yaptığınız yatırımların meyvelerini yavaş yavaş toplama dönemi.",
+      "Zihinsel ve Bedensel Sağlık": "Sabırlı beklemenin getirdiği içsel huzur. Bedensel ritminizin ve enerjinizin kademeli yükselişi."
+    }
+  },
+  {
+    "id": 68,
+    "isim": "Asa Dörtlüsü",
+    "resim": "/Wands04.png",
+    "genel_anlam": "Kutlama, uyum, evlilik, güvenli yuva.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınızda istikrarı yakaladığınız, başarılarınızı sevdiklerinizle birlikte neşeyle kutlayacağınız huzurlu bir durak.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Evlilik, söz, nişan veya birlikte eve taşınma kararı. İlişkilere tam bir sadakat, aidiyet ve aile huzuru.",
+      "Kariyer, Para ve Başarı": "Büyük bir projenin başarıyla tamamlanıp kutlanması. Finansal olarak kendinizi güvende hissedeceksiniz.",
+      "Zihinsel ve Bedensel Sağlık": "Ev huzurunun getirdiği harika bir zihinsel şifa. Kendinizi her açıdan dengede ve sağlıklı hissetme."
+    }
+  },
+  {
+    "id": 69,
+    "isim": "Asa Beşlisi",
+    "resim": "/Wands05.png",
+    "genel_anlam": "Rekabet, çatışma, fikir ayrılıkları.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Çevrenizde çok fazla ses, ufak tefek ego çatışmaları olabilir. Büyük kavgalar değil ama kendinizi kanıtlamanız gereken bir süreç.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkide incir çekirdeğini doldurmayan ufak tefek inatlaşmalar. Sakin kalıp egoları kenara bırakmalısınız.",
+      "Kariyer, Para ve Başarı": "İş ortamında yoğun rekabet, fikir çatışmaları ve toplantılarda projelerinizi savunmak zorunda kalmanız.",
+      "Zihinsel ve Bedensel Sağlık": "Zihinsel karmaşa ve strese bağlı baş ağrıları. Çevrenin gürültüsünü susturmalısınız."
+    }
+  },
+  {
+    "id": 70,
+    "isim": "Asa Altılısı",
+    "resim": "/Wands06.png",
+    "genel_anlam": "Zafer, toplumsal takdir, başarı.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Verdiğiniz tüm mücadeleleri kazandınız. Çevrenizdeki herkesin sizi alkışlayacağı, haklılığınızın kanıtlanacağı gurur verici bir dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Aşk hayatında mutlak zafer. Partnerinizle engelleri aştınız, herkes ilişkinize gıpta ile bakacak.",
+      "Kariyer, Para ve Başarı": "Terfi, ödül kazanma, herkesin gözü önünde büyük bir başarı elde etme ve finansal kazancın tavan yapması.",
+      "Zihinsel ve Bedensel Sağlık": "Başarı hissinin getirdiği muazzam bir dopamin artışı. Fiziksel olarak çok güçlüsünüz."
+    }
+  },
+  {
+    "id": 71,
+    "isim": "Asa Yedilisi",
+    "resim": "/Wands07.png",
+    "genel_anlam": "Savunma, meydan okuma, sınırları koruma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Zirvedesiniz ama yerinizi korumak için aşağıdan gelen saldırılara karşı sınırlarınızı savunmak, dik durmak zorundasınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinize dışarıdan müdahale etmeye çalışan insanlara karşı partnerinizle el ele verip sınırlarınızı koruma zamanı.",
+      "Kariyer, Para ve Başarı": "İş yerinde pozisyonunuza göz diken rakiplere karşı projelerinizi cesurca savunma ve haklarınızı koruma dönemi.",
+      "Zihinsel ve Bedensel Sağlık": "Baskı altında olsanız bile sarsılmayan bir zihinsel direnç. Bağışıklık sisteminizi güçlü tutmalısınız."
+    }
+  },
+  {
+    "id": 72,
+    "isim": "Asa Sekizlisi",
+    "resim": "/Wands08.png",
+    "genel_anlam": "Hızlı değişim, ani haberler, seyahat.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatınız bir anda inanılmaz hızlanıyor. Ardı ardına gelecek ani haberlerle kararlarınızı çok hızlı vermelisiniz.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Yıldırım aşkı, aniden telefona düşecek mesajlar veya partnerinizle plansız bir seyahat kararı.",
+      "Kariyer, Para ve Başarı": "Tıkanan tüm onayların aniden çözülmesi. İş seyahatleri ve jet hızıyla sonuçlanan karlı anlaşmalar.",
+      "Zihinsel ve Bedensel Sağlık": "Zihnin çok hızlı çalışması, yaratıcı fikirlerin akışı. Aşırı uyarılmaya bağlı uykusuzluğa dikkat."
+    }
+  },
+  {
+    "id": 73,
+    "isim": "Asa Dokuzlusu",
+    "resim": "/Wands09.png",
+    "genel_anlam": "Dayanıklılık, son düzlük, tetikte olma.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Çok yoruldunuz, geçmiş yaralarınız var ama çizgisine çok az kaldı. Gardınızı düşürmeyin, son bir gayretle engeli aşacaksınız.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Geçmiş ilişki kırgınlıkları yüzünden duvarlar örmüş olabilirsiniz. Tetikte olmayı bırakıp güvenmeye açılmalısınız.",
+      "Kariyer, Para ve Başarı": "Yoğun bir iş temposunun son aşaması. Rakiplere karşı tetiktesiniz, projenizi bitirmek üzere sabrediyorsunuz.",
+      "Zihinsel ve Bedensel Sağlık": "Kronik yorgunluğa rağmen sarsılmayan bir irade gücü. Bedeninizi aşırı yıpratmamaya özen göstermelisiniz."
+    }
+  },
+  {
+    "id": 74,
+    "isim": "Asa Onlusu",
+    "resim": "/Wands10.png",
+    "genel_anlam": "Aşırı yük, sorumluluk, tükenmişlik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Hayatın tüm yükünü tek başınıza sırtlamışsınız ve artık önünüzü göremiyorsunuz. Görevleri başkalarına devretme vakti geldi.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "İlişkinin tüm sorumluluğunu tek başınıza taşımaktan yorulmuşsunuz. Partnerinizle bu yükü paylaşmalısınız.",
+      "Kariyer, Para ve Başarı": "İş yerinde aşırı yük ve tükenmişlik sendromu. Sınırlarınızı çizip 'hayır' demelisiniz.",
+      "Zihinsel ve Bedensel Sağlık": "Stres ve ağır yüke bağlı sırt, omuz ağrıları. Zihninizi boşaltmak için acilen profesyonel bir mola vermelisiniz."
+    }
+  },
+  {
+    "id": 75,
+    "isim": "Asa Prensi",
+    "resim": "/Wands11.png",
+    "genel_anlam": "Taze heves, macera haberi, yaratıcı kıvılcım and yüksek enerji.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "İçinizde çocuksu ve yüksek bir coşku uyanıyor. Hayatınıza yeni heyecanlar katacak vizyoner haberler veya genç birinin enerjisi dahil olmak üzere.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Eğlenceli flörtler, kıpır kıpır bir aşk enerjisi. İlişkinizde rutinleri tamamen dağıtacak coşkulu adımlar.",
+      "Kariyer, Para ve Başarı": "Yepyeni bir projeye hevesle başlama, girişimcilik ruhunun tetiklenmesi and küçük ama vizyoner karlar getirecek fikirler.",
+      "Zihinsel ve Bedensel Sağlık": "Yaşama sevincinin tavan yaptığı, kendinizi bedensel olarak çok dinamik ve sportif hissedeceğiniz şifalı bir dönem."
+    }
+  },
+  {
+    "id": 76,
+    "isim": "Asa Şövalyesi",
+    "resim": "/Wands12.png",
+    "genel_anlam": "Eylem, tutku, taşınma, fevri çıkış and yüksek motivasyon.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Ateşli ve cesur bir şövalye gibi hayatınıza devasa bir aksiyon enerjisi giriyor. Ani seyahatler, taşınma veya kadersel yer değişiklikleri kapıda.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Çok tutkulu, hızlı başlayan, nefes kesen ama bir o kadar da fevri and sabırsız bir aşk macerası döngüsü.",
+      "Kariyer, Para ve Başarı": "Cesurca yeni pazarlara dalma, riskli ama yüksek kazançlı yatırımlar and iş yerinde liderliği ele alıp herkesi peşinden sürükleme.",
+      "Zihinsel ve Bedensel Sağlık": "Muazzam bir kas ve eklem enerjisi. Ancak fevri hareketlerden dolayı sporda ufak tefek incinmelere karşı dikkatli olunmalı."
+    }
+  },
+  {
+    "id": 77,
+    "isim": "Asa Kraliçesi",
+    "resim": "/Wands13.png",
+    "genel_anlam": "Karizma, özgüven, sosyal güç, çekicilik and doğurgan yaratıcılık.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Girdiğiniz her ortamda ışık saçtığınız, karizmanızla insanları büyülediğiniz, hayatınızdaki güçlü, bağımsız bir kadından dev destek alacağınız süreç.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Özgüveni yüksek, çekici ve son derece tutkulu bir aşk. İlişkide liderliği nezaketle ele alıp partnerinizi büyüleme zamanı.",
+      "Kariyer, Para ve Başarı": "Sosyal ilişkilerde muazzam ağ (network) kurma başarısı, kendi markanı parlatma and yaratıcı projelerin satışından yüksek finansal karlar.",
+      "Zihinsel ve Bedensel Sağlık": "İçsel aydınlanma, yaşama aşkı and sarsılmaz bir mental güç. Kendinizi hem ruhen hem bedenen spot ışıklarının altında gibi dinç hissetme."
+    }
+  },
+  {
+    "id": 78,
+    "isim": "Asa Kralı",
+    "resim": "/Wands14.png",
+    "genel_anlam": "Liderlik, vizyon, mutlak güç, cesaret and kadersel girişimcilik.",
+    "odak_anlamlari": {
+      "Genel Gidişat ve Kader": "Asa imparatorluğunuzun tahtındasınız. Hayatınızın iplerini tamamen elinize aldığınız, vizyoner kararlarınızla kaderinizi ve çevrenizi şekillendirdiğiniz zirve dönem.",
+      "Aşk, İlişkiler ve Kalp Mevzuları": "Cesur, koruyucu, son derece tutkulu and sarsılmaz bir partner enerjisi. İlişkinin geleceğini ortak vizyonla inşa ediyorsunuz.",
+      "Kariyer, Para ve Başarı": "Büyük şirketlerin başına geçme, vizyoner yatırımların patlama yapması, finansal olarak devasa karlar and iş dünyasında tam bir liderlik tescili.",
+      "Zihinsel ve Bedensel Sağlık": "Muazzam bir hayatsal irade ve zihinsel duruluk. Yüksek motivasyonun getirdiği sarsılmaz, kaya gibi güçlü bir bedensel direnç."
+    }
+  }
+]
