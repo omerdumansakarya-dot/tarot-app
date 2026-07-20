@@ -25,6 +25,8 @@ export default function App() {
 
   const [kullaniciAdi, setKullaniciAdi] = useState("");
   const [kullaniciBurcu, setKullaniciBurcu] = useState("Koç");
+  const [dogumTarihi, setDogumTarihi] = useState(""); // YENİ: Doğum Tarihi State'i
+  const [dogumSaati, setDogumSaati] = useState("");   // YENİ: Doğum Saati State'i
   const [odakKonusu, setOdakKonusu] = useState("genel");
 
   const [desteRituelDurumu, setDesteRituelDurumu] = useState("bekliyor");
@@ -67,6 +69,7 @@ export default function App() {
       console.log("Ses motoru başlatılamadı:", e);
     }
   };
+
   const gunlukBurcYorumuGetir = () => {
     const bugun = new Date();
     const gun = bugun.getDate();
@@ -185,8 +188,7 @@ export default function App() {
 
     setYukleniyorMu(true);
     
-    // 1. ADIM: Mevcut sabit/klasik yorum yapısını oluştur
-    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (${kullaniciBurcu} Burcu), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
+    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (${kullaniciBurcu} Burcu, Doğum: ${dogumTarihi || belirtilmedi} ${dogumSaati ? saat + dogumSaati : ''}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     let kartAnalizleri = "";
 
     if (acilimTuru === 1) {
@@ -201,21 +203,26 @@ export default function App() {
       kartAnalizleri = acikKartlarVerisi.map((k, i) => `✦ ${keltKonumlari[i]}:\nBeliren "${k.veri.isim}${k.ters ? ' (Ters)' : ''}" kartı der ki: ${anlamGetir(k.veri, k.ters, i)}`).join("\n\n") + "\n\n";
     }
 
-    // 2. ADIM: AI'dan gelecek "Derinlikli Yorum" için hazırlık
     const kartListesi = acikKartlarVerisi.map((k, i) => 
       `${keltKonumlari[i] || (i+1 + ". Kart")}: ${k.veri.isim} ${k.ters ? '(Ters)' : ''}`
     ).join(", ");
 
-    const aiPrompt = `Kullanıcı ${kullaniciBurcu} burcu ve "${odakMetniGetir()}" konusuna odaklandı. Kartlar: ${kartListesi}. 
+    const aiPrompt = `Kullanıcı ${kullaniciAdi} (${kullaniciBurcu} burcu, Doğum Tarihi: ${dogumTarihi}, Saat: ${dogumSaati}) ve "${odakMetniGetir()}" konusuna odaklandı. Kartlar: ${kartListesi}. 
     Yukarıdaki verilere dayanarak, spiritüel ve edebi bir dille, bu dizilimin kullanıcının hayatına getirdiği gizli mesajları ve rehberliği yorumla. Sadece yorumu yap, giriş cümlesi kurma.`;
 
-   // ... diğer kodlar
     try {
-      // DİKKAT: Artık doğrudan NVIDIA'ya değil, kendi API'mize istek atıyoruz!
       const response = await fetch("/api/fal-yorumla", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: aiPrompt })
+        body: JSON.stringify({ 
+          prompt: aiPrompt,
+          kullaniciAdi,
+          kullaniciBurcu,
+          dogumTarihi,
+          dogumSaati,
+          odakKonusu,
+          kartlar: kartListesi
+        })
       });
 
       const data = await response.json();
@@ -226,7 +233,6 @@ export default function App() {
         throw new Error(data.error || "Yorum alınamadı");
       }
     } catch (error) {
-// ...
       setAiYorumu(`${girisCumlesi}${kartAnalizleri}\n(Not: Mistik ağlar şu an yoğun, AI yorumu geçici olarak ulaşılamaz.)`);
     } finally {
       setYukleniyorMu(false);
@@ -301,10 +307,12 @@ export default function App() {
         {acilimTuru === null && (
           <div style={{ width: '100%', maxWidth: '400px', backgroundColor: '#111625', padding: '30px', borderRadius: '16px', border: '1px solid #1e293b', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', margin: '0 auto', boxSizing: 'border-box' }}>
             <p style={{ color: '#c084fc', fontFamily: '"Cinzel", serif', fontSize: '18px', marginBottom: '20px', letterSpacing: '1px', textAlign: 'center' }}>Kader Formunu Doldurun</p>
+            
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Adınız:</label>
               <input type="text" placeholder="Mistik bir isim..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
             </div>
+
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Burcunuz:</label>
               <select value={kullaniciBurcu} onChange={(e) => setKullaniciBurcu(e.target.value)} style={inputStili}>
@@ -313,6 +321,19 @@ export default function App() {
                 ))}
               </select>
             </div>
+
+            {/* YENİ EKLENENALAN: Doğum Tarihi */}
+            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Tarihiniz:</label>
+              <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
+            </div>
+
+            {/* YENİ EKLENEN ALAN: Doğum Saati */}
+            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz (İsteğe bağlı):</label>
+              <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
+            </div>
+
             <div style={{ marginBottom: '30px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Odaklanmak İstediğiniz Konu:</label>
               <select value={odakKonusu} onChange={(e) => setOdakKonusu(e.target.value)} style={inputStili}>
@@ -322,6 +343,7 @@ export default function App() {
                 <option value="saglik" style={{backgroundColor: '#111625'}}>✨ Sağlık & Spiritüellik</option>
               </select>
             </div>
+
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <button onClick={() => acilimiBaslat(1)} style={menuButonStili}>✦ Tek Kart Açılımı</button>
               <button onClick={() => acilimiBaslat(3)} style={menuButonStili}>✦ Üç Kart (Geçmiş-Şimdi-Gelecek)</button>
@@ -387,7 +409,7 @@ export default function App() {
                         <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', borderRadius: '10px', padding: '4px', background: '#1e293b' }}>
                           <img src={kartArkasiResmi} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
                         </div>
-                        <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', transform: kart.bindTers ? 'rotateY(180deg) rotate(180deg)' : 'rotateY(180deg)', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)' }}>
+                        <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', transform: kart.ters ? 'rotateY(180deg) rotate(180deg)' : 'rotateY(180deg)', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)' }}>
                           <img src={`/assets/cards${kart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
                         </div>
                       </div>
@@ -513,6 +535,7 @@ export default function App() {
 
     </div>
   );
+
   function renderKeltKarti(indeks, isHorizontal = false) {
     const kart = secilenKartlar[indeks];
     
