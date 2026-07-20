@@ -17,10 +17,10 @@ const keltKonumlari = [
   "10. Nihai Sonuç"
 ];
 
-// YENİ: Doğum tarihine göre burç hesaplayan yardımcı fonksiyon
+// Doğum tarihine göre ana burcu hesaplayan fonksiyon
 const burcHesapla = (tarihStr) => {
   if (!tarihStr) return "Koç";
-  const [yil, ay, gun] = tarihStr.split('-').map(Number);
+  const [, ay, gun] = tarihStr.split('-').map(Number);
   
   if ((ay === 3 && gun >= 21) || (ay === 4 && gun <= 20)) return "Koç";
   if ((ay === 4 && gun >= 21) || (ay === 5 && gun <= 20)) return "Boğa";
@@ -31,9 +31,24 @@ const burcHesapla = (tarihStr) => {
   if ((ay === 9 && gun >= 23) || (ay === 10 && gun <= 22)) return "Terazi";
   if ((ay === 10 && gun >= 23) || (ay === 11 && gun <= 21)) return "Akrep";
   if ((ay === 11 && gun >= 22) || (ay === 12 && gun <= 21)) return "Yay";
-  if ((ay === 12 && gun >= 22) || (ay === 1 &&-21 && gun <= 19)) return "Oğlak"; // ya da genel Ocak
-  if ((ay === 1 && gun >= 20) || (ay === 2 && gun <= 18)) return "Kova";
+  if ((ay === 12 && gun >= 22) || (ay === 1 && gun <= 20)) return "Oğlak";
+  if ((ay === 1 && gun >= 21) || (ay === 2 && gun <= 18)) return "Kova";
   return "Balık";
+};
+
+// Doğum saati ve güneş burcuna göre yaklaşık yükselen burç hesaplayan akıllı algoritma
+const yukselenHesapla = (gunesBurcu, saatStr) => {
+  if (!saatStr) return "Bilinmiyor (Saat girilmedi)";
+  const [saat] = saatStr.split(':').map(Number);
+  
+  const burclarSirasi = ["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"];
+  const gunesIndeks = burclarSirasi.indexOf(gunesBurcu);
+  
+  // Güneş doğuşu (ortalama 06:00) baz alınarak her 2 saatte bir burç kayması simülasyonu
+  const saatKaymasi = Math.floor(((saat - 6 + 24) % 24) / 2);
+  const yukselenIndeks = (gunesIndeks + saatKaymasi) % 12;
+  
+  return burclarSirasi[yukselenIndeks];
 };
 
 export default function App() {
@@ -45,10 +60,12 @@ export default function App() {
   const [kullaniciAdi, setKullaniciAdi] = useState("");
   const [dogumTarihi, setDogumTarihi] = useState("");
   const [dogumSaati, setDogumSaati] = useState("");
+  const [dogumYeri, setDogumYeri] = useState(""); // YENİ: Doğum Yeri (Şehir)
   const [odakKonusu, setOdakKonusu] = useState("genel");
 
-  // Burcu artık doğum tarihinden otomatik türetiyoruz
+  // Otomatik hesaplanan burçlar
   const kullaniciBurcu = burcHesapla(dogumTarihi);
+  const yukselenBurcu = yukselenHesapla(kullaniciBurcu, dogumSaati);
 
   const [desteRituelDurumu, setDesteRituelDurumu] = useState("bekliyor");
   const [dizilenKartSayisi, setDizilenKartSayisi] = useState(0); 
@@ -209,7 +226,7 @@ export default function App() {
 
     setYukleniyorMu(true);
     
-    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (${kullaniciBurcu} Burcu, Doğum: ${dogumTarihi || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
+    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     let kartAnalizleri = "";
 
     if (acilimTuru === 1) {
@@ -228,7 +245,7 @@ export default function App() {
       `${keltKonumlari[i] || (i+1 + ". Kart")}: ${k.veri.isim} ${k.ters ? '(Ters)' : ''}`
     ).join(", ");
 
-    const aiPrompt = `Kullanıcı ${kullaniciAdi} (${kullaniciBurcu} burcu, Doğum Tarihi: ${dogumTarihi}, Saat: ${dogumSaati}) ve "${odakMetniGetir()}" konusuna odaklandı. Kartlar: ${kartListesi}. 
+    const aiPrompt = `Kullanıcı ${kullaniciAdi} (Güneş Burcu: ${kullaniciBurcu}, Yükselen Burç: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri}, Saat: ${dogumSaati}) ve "${odakMetniGetir()}" konusuna odaklandı. Kartlar: ${kartListesi}. 
     Yukarıdaki verilere dayanarak, spiritüel ve edebi bir dille, bu dizilimin kullanıcının hayatına getirdiği gizli mesajları ve rehberliği yorumla. Sadece yorumu yap, giriş cümlesi kurma.`;
 
     try {
@@ -239,8 +256,10 @@ export default function App() {
           prompt: aiPrompt,
           kullaniciAdi,
           kullaniciBurcu,
+          yukselenBurcu,
           dogumTarihi,
           dogumSaati,
+          dogumYeri,
           odakKonusu,
           kartlar: kartListesi
         })
@@ -334,25 +353,39 @@ export default function App() {
               <input type="text" placeholder="Mistik bir isim..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
             </div>
 
-            {/* Doğum Tarihi Alanı */}
+            {/* Doğum Tarihi */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Tarihiniz:</label>
               <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
             </div>
 
-            {/* Otomatik Algılanan Burç Göstergesi */}
-            {dogumTarihi && (
-              <div style={{ marginBottom: '15px', textAlign: 'left', padding: '10px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
-                <span style={{ color: '#c084fc', fontSize: '13px' }}>✨ Tespit Edilen Burç: </span>
-                <strong style={{ color: '#eab308', fontSize: '14px' }}>{kullaniciBurcu} Burcu</strong>
-              </div>
-            )}
-
-            {/* Doğum Saati Alanı */}
+            {/* Doğum Saati */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz (İsteğe bağlı):</label>
+              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz:</label>
               <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
             </div>
+
+            {/* YENİ: Doğum Yeri (Şehir) */}
+            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Yeri (Şehir):</label>
+              <input type="text" placeholder="Örn: İstanbul, Ankara..." value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
+            </div>
+
+            {/* Otomatik Tespit Edilen Astroloji Kartı */}
+            {dogumTarihi && (
+              <div style={{ marginBottom: '15px', textAlign: 'left', padding: '12px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
+                <div style={{ marginBottom: '4px' }}>
+                  <span style={{ color: '#c084fc', fontSize: '13px' }}>✨ Güneş Burcu: </span>
+                  <strong style={{ color: '#eab308', fontSize: '14px' }}>{kullaniciBurcu}</strong>
+                </div>
+                {dogumSaati && (
+                  <div>
+                    <span style={{ color: '#c084fc', fontSize: '13px' }}>🌅 Yükselen Burç: </span>
+                    <strong style={{ color: '#eab308', fontSize: '14px' }}>{yukselenBurcu}</strong>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div style={{ marginBottom: '30px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Odaklanmak İstediğiniz Konu:</label>
@@ -386,7 +419,7 @@ export default function App() {
               {acilimTuru === 10 && "ON KART (KELT HAÇI) RİTÜELİ"}
             </p>
             <p style={{ color: '#c084fc', fontSize: '14px', margin: '0 0 20px 0', textAlign: 'center' }}>
-              Sevgili {kullaniciAdi || 'Misafir'} ({kullaniciBurcu}), Odak: {odakMetniGetir()}
+              Sevgili {kullaniciAdi || 'Misafir'} ({kullaniciBurcu} / Yükselen: {yukselenBurcu}), Odak: {odakMetniGetir()}
             </p>
 
             <div style={{
