@@ -23,6 +23,7 @@ const keltKonumlari = [
   "10. Nihai Sonuç"
 ];
 
+// Doğum tarihine göre ana burcu hesaplayan fonksiyon
 const burcHesapla = (tarihStr) => {
   if (!tarihStr) return "Koç";
   const [, ay, gun] = tarihStr.split('-').map(Number);
@@ -41,13 +42,19 @@ const burcHesapla = (tarihStr) => {
   return "Balık";
 };
 
+// Doğum saati ve güneş burcuna göre yaklaşık yükselen burç hesaplayan akıllı algoritma
 const yukselenHesapla = (gunesBurcu, saatStr) => {
-  if (!saatStr) return "Bilinmiyor";
+  if (!saatStr) return "Bilinmiyor (Saat girilmedi)";
   const [saat] = saatStr.split(':').map(Number);
+  
   const burclarSirasi = ["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"];
   const gunesIndeks = burclarSirasi.indexOf(gunesBurcu);
+  
+  // Güneş doğuşu (ortalama 06:00) baz alınarak her 2 saatte bir burç kayması simülasyonu
   const saatKaymasi = Math.floor(((saat - 6 + 24) % 24) / 2);
-  return burclarSirasi[(gunesIndeks + saatKaymasi) % 12];
+  const yukselenIndeks = (gunesIndeks + saatKaymasi) % 12;
+  
+  return burclarSirasi[yukselenIndeks];
 };
 
 export default function App() {
@@ -59,9 +66,10 @@ export default function App() {
   const [kullaniciAdi, setKullaniciAdi] = useState("");
   const [dogumTarihi, setDogumTarihi] = useState("");
   const [dogumSaati, setDogumSaati] = useState("");
-  const [dogumYeri, setDogumYeri] = useState("");
+  const [dogumYeri, setDogumYeri] = useState(""); // YENİ: Doğum Yeri (Şehir)
   const [odakKonusu, setOdakKonusu] = useState("genel");
 
+  // Otomatik hesaplanan burçlar
   const kullaniciBurcu = burcHesapla(dogumTarihi);
   const yukselenBurcu = yukselenHesapla(kullaniciBurcu, dogumSaati);
 
@@ -215,6 +223,7 @@ export default function App() {
     return "Genel Gidişat ve Kader";
   };
 
+  // AI ÇÖZÜMÜ GEÇİCİ OLARAK DEVRE DIŞI BIRAKILDI (SABİT METİN + DB KAYDI)
   const falimiYorumla = async () => {
     const acikKartlarVerisi = secilenKartlar.filter(k => k.acik);
     if (acikKartlarVerisi.length !== acilimTuru) {
@@ -255,46 +264,32 @@ export default function App() {
       `${keltKonumlari[i] || (i+1 + ". Kart")}: ${k.veri.isim} ${k.ters ? '(Ters)' : ''}`
     ).join(", ");
 
-    const aiPrompt = `Kullanıcı ${kullaniciAdi} (Güneş Burcu: ${kullaniciBurcu}, Yükselen Burç: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri}, Saat: ${dogumSaati}) ve "${odakMetniGetir()}" konusuna odaklandı. Kartlar: ${kartListesi}. 
-    Yukarıdaki verilere dayanarak, spiritüel ve edebi bir dille, bu dizilimin kullanıcının hayatına getirdiği gizli mesajları ve rehberliği yorumla. Sadece yorumu yap, giriş cümlesi kurma.`;
+    const sabitAiYaniti = "AI yorumu şuan yapılamamaktadır.";
+    
+    setAiYorumu(`${girisCumlesi}${kartAnalizleri}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${sabitAiYaniti}`);
 
     try {
-      const response = await fetch("/api/fal-yorumla", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: aiPrompt })
-      });
-
-      const data = await response.json();
-      
-      if (data.ai_yaniti) {
-        const tamYorum = `${girisCumlesi}${kartAnalizleri}\n--- 🔮 AI Rehberinin Derinlemesine Analizi ---\n\n${data.ai_yaniti}`;
-        setAiYorumu(tamYorum);
-
-        // SUPABASE VERİTABANINA KAYIT ATMA
-        await supabase.from('fal_gecmisi').insert([
-          {
-            kullanici_adi: kullaniciAdi,
-            dogum_tarihi: dogumTarihi,
-            dogum_saati: dogumSaati,
-            dogum_yeri: dogumYeri,
-            gunes_burcu: kullaniciBurcu,
-            yukselen_burcu: yukselenBurcu,
-            odak_konusu: odakKonusu,
-            secilen_kartlar: kartListesi,
-            ai_yaniti: data.ai_yaniti,
-            ip_adresi: ipBilgisi,
-            ulke: ulkeBilgisi,
-            sehir: sehirBilgisi,
-            cihaz_bilgisi: navigator.userAgent
-          }
-        ]);
-
-      } else {
-        throw new Error(data.error || "Yorum alınamadı");
-      }
+      // SUPABASE VERİTABANINA KAYIT ATMA
+      await supabase.from('fal_gecmisi').insert([
+        {
+          kullanici_adi: kullaniciAdi,
+          dogum_tarihi: dogumTarihi,
+          dogum_saati: dogumSaati,
+          dogum_yeri: dogumYeri,
+          gunes_burcu: kullaniciBurcu,
+          yukselen_burcu: yukselenBurcu,
+          odak_konusu: odakKonusu,
+          secilen_kartlar: kartListesi,
+          ai_yaniti: sabitAiYaniti,
+          ip_adresi: ipBilgisi,
+          ulke: ulkeBilgisi,
+          sehir: sehirBilgisi,
+          cihaz_bilgisi: navigator.userAgent
+        }
+      ]);
+      console.log("Veritabanına kayıt başarıyla atıldı!");
     } catch (error) {
-      setAiYorumu(`${girisCumlesi}${kartAnalizleri}\n(Not: Mistik ağlar şu an yoğun, AI yorumu geçici olarak ulaşılamaz.)`);
+      console.log("Veritabanı kayıt hatası:", error);
     } finally {
       setYukleniyorMu(false);
     }
@@ -551,11 +546,11 @@ export default function App() {
               <div style={{ marginBottom: '40px' }}>
                 {yukleniyorMu ? (
                   <p style={{ color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '18px', fontWeight: 'bold' }}>
-                    🔮 Baş Falcı Kelt Haçı dengelerini inceliyor, lütfen bekleyin...
+                    🔮 Mistik enerji veritabanına işleniyor, lütfen bekleyin...
                   </p>
                 ) : (
                   <button onClick={falimiYorumla} style={{ ...aksiyonButonStili, background: 'linear-gradient(135deg, #a855f7 0%, #d8b4fe 100%)', color: '#090d16', fontSize: '18px', padding: '16px 36px', border: 'none', boxShadow: '0 0 20px rgba(216, 180, 254, 0.4)' }}>
-                    ✨ Kelt Haçı Kehanetini Başlat ✨
+                    ✨ Kehanetini Başlat & Kaydet ✨
                   </button>
                 )}
               </div>
@@ -563,7 +558,7 @@ export default function App() {
 
             {aiYorumu && (
               <div style={{ width: '100%', maxWidth: '750px', margin: '0 auto 40px auto', padding: '30px', backgroundColor: '#17112a', borderRadius: '16px', border: '2px solid #d8b4fe', boxShadow: '0 0 25px rgba(168, 85, 247, 0.2)', textAlign: 'left', boxSizing: 'border-box' }}>
-                <h3 style={{ fontFamily: '"Cinzel", serif', color: '#eab308', margin: '0 0 15px 0', fontSize: '20px' }}>🔮 Baş Falcının Kelt Haçı Kehaneti</h3>
+                <h3 style={{ fontFamily: '"Cinzel", serif', color: '#eab308', margin: '0 0 15px 0', fontSize: '20px' }}>🔮 Mistik Rehberin Analizi</h3>
                 <p style={{ margin: 0, color: '#f1f5f9', fontSize: '16px', lineHeight: '1.7', whiteSpace: 'pre-line' }}>{aiYorumu}</p>
               </div>
             )}
