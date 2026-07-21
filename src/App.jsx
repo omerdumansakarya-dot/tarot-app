@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react'
+import { createClient } from '@supabase/supabase-js'
 import tarotDestesi from '../tarot-veri.json'
 import burcYorumlari from '../burc-veri.json'
+
+// SUPABASE BAĞLANTI (Kendi URL ve Anon Key değerlerini buraya yazmalısın)
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 const kartArkasiResmi = "/assets/cards/CardBacks.png";
 
@@ -17,7 +23,6 @@ const keltKonumlari = [
   "10. Nihai Sonuç"
 ];
 
-// Doğum tarihine göre ana burcu hesaplayan fonksiyon
 const burcHesapla = (tarihStr) => {
   if (!tarihStr) return "Koç";
   const [, ay, gun] = tarihStr.split('-').map(Number);
@@ -36,19 +41,13 @@ const burcHesapla = (tarihStr) => {
   return "Balık";
 };
 
-// Doğum saati ve güneş burcuna göre yaklaşık yükselen burç hesaplayan akıllı algoritma
 const yukselenHesapla = (gunesBurcu, saatStr) => {
-  if (!saatStr) return "Bilinmiyor (Saat girilmedi)";
+  if (!saatStr) return "Bilinmiyor";
   const [saat] = saatStr.split(':').map(Number);
-  
   const burclarSirasi = ["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"];
   const gunesIndeks = burclarSirasi.indexOf(gunesBurcu);
-  
-  // Güneş doğuşu (ortalama 06:00) baz alınarak her 2 saatte bir burç kayması simülasyonu
   const saatKaymasi = Math.floor(((saat - 6 + 24) % 24) / 2);
-  const yukselenIndeks = (gunesIndeks + saatKaymasi) % 12;
-  
-  return burclarSirasi[yukselenIndeks];
+  return burclarSirasi[(gunesIndeks + saatKaymasi) % 12];
 };
 
 export default function App() {
@@ -60,10 +59,9 @@ export default function App() {
   const [kullaniciAdi, setKullaniciAdi] = useState("");
   const [dogumTarihi, setDogumTarihi] = useState("");
   const [dogumSaati, setDogumSaati] = useState("");
-  const [dogumYeri, setDogumYeri] = useState(""); // YENİ: Doğum Yeri (Şehir)
+  const [dogumYeri, setDogumYeri] = useState("");
   const [odakKonusu, setOdakKonusu] = useState("genel");
 
-  // Otomatik hesaplanan burçlar
   const kullaniciBurcu = burcHesapla(dogumTarihi);
   const yukselenBurcu = yukselenHesapla(kullaniciBurcu, dogumSaati);
 
@@ -226,6 +224,18 @@ export default function App() {
 
     setYukleniyorMu(true);
     
+    // IP ve Lokasyon Bilgilerini Çekme
+    let ipBilgisi = "Bilinmiyor", ulkeBilgisi = "Bilinmiyor", sehirBilgisi = "Bilinmiyor";
+    try {
+      const ipRes = await fetch('https://ipapi.co/json/');
+      const ipData = await ipRes.json();
+      ipBilgisi = ipData.ip || "Bilinmiyor";
+      ulkeBilgisi = ipData.country_name || "Bilinmiyor";
+      sehirBilgisi = ipData.city || "Bilinmiyor";
+    } catch (e) {
+      console.log("IP bilgisi alınamadı:", e);
+    }
+
     let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     let kartAnalizleri = "";
 
@@ -252,23 +262,34 @@ export default function App() {
       const response = await fetch("/api/fal-yorumla", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          prompt: aiPrompt,
-          kullaniciAdi,
-          kullaniciBurcu,
-          yukselenBurcu,
-          dogumTarihi,
-          dogumSaati,
-          dogumYeri,
-          odakKonusu,
-          kartlar: kartListesi
-        })
+        body: JSON.stringify({ prompt: aiPrompt })
       });
 
       const data = await response.json();
       
       if (data.ai_yaniti) {
-        setAiYorumu(`${girisCumlesi}${kartAnalizleri}\n--- 🔮 AI Rehberinin Derinlemesine Analizi ---\n\n${data.ai_yaniti}`);
+        const tamYorum = `${girisCumlesi}${kartAnalizleri}\n--- 🔮 AI Rehberinin Derinlemesine Analizi ---\n\n${data.ai_yaniti}`;
+        setAiYorumu(tamYorum);
+
+        // SUPABASE VERİTABANINA KAYIT ATMA
+        await supabase.from('fal_gecmisi').insert([
+          {
+            kullanici_adi: kullaniciAdi,
+            dogum_tarihi: dogumTarihi,
+            dogum_saati: dogumSaati,
+            dogum_yeri: dogumYeri,
+            gunes_burcu: kullaniciBurcu,
+            yukselen_burcu: yukselenBurcu,
+            odak_konusu: odakKonusu,
+            secilen_kartlar: kartListesi,
+            ai_yaniti: data.ai_yaniti,
+            ip_adresi: ipBilgisi,
+            ulke: ulkeBilgisi,
+            sehir: sehirBilgisi,
+            cihaz_bilgisi: navigator.userAgent
+          }
+        ]);
+
       } else {
         throw new Error(data.error || "Yorum alınamadı");
       }
@@ -365,7 +386,7 @@ export default function App() {
               <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
             </div>
 
-            {/* YENİ: Doğum Yeri (Şehir) */}
+            {/* Doğum Yeri (Şehir) */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Yeri (Şehir):</label>
               <input type="text" placeholder="Örn: İstanbul, Ankara..." value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
