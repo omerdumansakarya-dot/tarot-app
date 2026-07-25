@@ -168,5 +168,3 @@ export default function DogumHaritasi() {
 
 const inputStili = { width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #3b0764', backgroundColor: '#090d16', color: '#f8fafc', boxSizing: 'border-box', marginTop: '5px' };
 const aksiyonButonStili = { backgroundColor: '#581c87', color: '#f8fafc', border: '1px solid #a855f7', padding: '12px 20px', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif' };
-
-export default DogumHaritasi;
