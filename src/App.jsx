@@ -271,7 +271,7 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
 
     try {
       // Vercel Serverless Endpoint'ine Bağlantı
-      const response = await fetch('/api/Ask', {
+      const response = await fetch('/api/fal-yorumla', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: aiPrompt })
