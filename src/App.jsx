@@ -257,9 +257,8 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     let gelenAiYaniti = "";
 
     try {
-      // Eğer projedeki dosyanın adı Ask.js ise burayı '/api/Ask' yapmalısın.
-      // Eğer dosya adın fal-yorumla.js ise '/api/fal-yorumla' kalabilir.
-      const response = await fetch('/api/Ask', {
+      // Tam eşleşen API endpoint adresi
+      const response = await fetch('/api/falimi-yorumla', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: aiPrompt })
@@ -270,27 +269,17 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
       if (response.ok && (data.answer || data.ai_yaniti)) {
         gelenAiYaniti = data.answer || data.ai_yaniti;
       } else {
-        // SUNUCUDAN GELEN GERÇEK HATAYI EKRANA BASALIM
-        gelenAiYaniti = `[API HATASI KODU: ${response.status}] Sunucu Mesajı: ${JSON.stringify(data)}`;
+        gelenAiYaniti = `[API HATASI ${response.status}]: ${JSON.stringify(data)}`;
       }
     } catch (err) {
       console.error("AI İstek Hatası:", err);
-      gelenAiYaniti = `[BAĞLANTI/JS HATASI]: ${err.message}`;
+      gelenAiYaniti = `[BAĞLANTI HATASI]: ${err.message}`;
     }
 
     let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     
     setAiYorumu(`${girisCumlesi}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${gelenAiYaniti}`);
     setYukleniyorMu(false);
-  };
-
-  const menuyeDon = () => {
-    setAcilimTuru(null);
-    setSecilenKartlar([]);
-    setAiYorumu("");
-    setDizilenKartSayisi(0);
-    setDesteRituelDurumu("bekliyor");
-    setOdaklananKart(null);
   };
 
   const herkesAcildiMi = secilenKartlar.length === acilimTuru && secilenKartlar.every(k => k.acik);
