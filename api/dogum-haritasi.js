@@ -62,5 +62,3 @@ Lütfen raporu şu başlıklar altında Türkçe ve paragraflar halinde ver:
     return res.status(500).json({ error: 'Sunucu hatası: ' + err.message });
   }
 }
-// DogumHaritasi.jsx dosyasının en altı:
-export default DogumHaritasi;

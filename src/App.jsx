@@ -3,11 +3,9 @@ import { createClient } from '@supabase/supabase-js'
 import tarotDestesi from '../tarot-veri.json'
 import burcYorumlari from '../burc-veri.json'
 
-// App.jsx dosyasının üstüne ekleyin:
+// Modüler Bileşen İçe Aktarmaları
 import DogumHaritasi from './DogumHaritasi';
-
-// App.jsx içerisinde görünmesini istediğiniz yere (örneğin sayfa altına veya bir tab arkasına):
-<DogumHaritasi />
+import AdBanner from './components/AdBanner';
 
 // SUPABASE BAĞLANTI
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://mwdspioshyrsmdshbzkp.supabase.co";
@@ -51,7 +49,7 @@ const burcHesapla = (tarihStr) => {
   return "Balık";
 };
 
-// Doğum saati ve güneş burcuna göre yaklaşık yükselen burç hesaplayan akıllı algoritma
+// Yükselen burç hesaplama
 const yukselenHesapla = (gunesBurcu, saatStr) => {
   if (!saatStr) return "Bilinmiyor (Saat girilmedi)";
   const [saat] = saatStr.split(':').map(Number);
@@ -66,6 +64,7 @@ const yukselenHesapla = (gunesBurcu, saatStr) => {
 };
 
 export default function App() {
+  const [aktifSekme, setAktifSekme] = useState('tarot'); // 'tarot' veya 'harita'
   const [acilimTuru, setAcilimTuru] = useState(null);
   const [secilenKartlar, setSecilenKartlar] = useState([]);
   const [aiYorumu, setAiYorumu] = useState("");
@@ -230,7 +229,6 @@ export default function App() {
     return "Genel Gidişat ve Kader";
   };
 
-  // MENÜYE DÖNME FONKSİYONU (Eksik olduğu için hata veriyordu, eklendi)
   const menuyeDon = () => {
     setAcilimTuru(null);
     setSecilenKartlar([]);
@@ -250,7 +248,6 @@ export default function App() {
 
     setYukleniyorMu(true);
 
-    // IP ve Lokasyon Bilgisi Toplama
     let ipBilgisi = "Bilinmiyor", ulkeBilgisi = "Bilinmiyor", sehirBilgisi = "Bilinmiyor";
     try {
       const ipRes = await fetch('https://ipapi.co/json/');
@@ -284,7 +281,6 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     let gelenAiYaniti = "";
 
     try {
-      // Dosya adıyla tam eşleşen API adresi
       const response = await fetch('/api/fal-yorumla', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -307,7 +303,6 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     
     setAiYorumu(`${girisCumlesi}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${gelenAiYaniti}`);
 
-    // SUPABASE KAYDI
     if (supabase) {
       try {
         const kartListesi = acikKartlarVerisi.map((k, i) => 
@@ -391,252 +386,279 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
       </button>
 
       <div className="icerik-kapsayici">
+        
+        {/* TAB ANAHTARI (TAROT / DOĞUM HARİTASI) */}
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', zIndex: 10 }}>
+          <button 
+            onClick={() => setAktifSekme('tarot')} 
+            style={{ ...tabButonStili, backgroundColor: aktifSekme === 'tarot' ? '#581c87' : '#1e293b', border: aktifSekme === 'tarot' ? '2px solid #eab308' : '1px solid #334155' }}>
+            🔮 Tarot Açılımı
+          </button>
+          <button 
+            onClick={() => setAktifSekme('harita')} 
+            style={{ ...tabButonStili, backgroundColor: aktifSekme === 'harita' ? '#581c87' : '#1e293b', border: aktifSekme === 'harita' ? '2px solid #eab308' : '1px solid #334155' }}>
+            📜 Doğum Haritası Raporu
+          </button>
+        </div>
+
         <h1 onClick={menuyeDon} style={{ fontFamily: '"Cinzel", serif', color: '#d8b4fe', fontSize: isMobil ? '28px' : '36px', letterSpacing: '4px', textShadow: '0 0 15px rgba(168, 85, 247, 0.6)', cursor: 'pointer', margin: '0 0 10px 0', fontWeight: '700', textAlign: 'center' }}>
-          ✨ MİSTİK TAROT ✨
+          {aktifSekme === 'tarot' ? "✨ MİSTİK TAROT ✨" : "🌌 DOĞUM HARİTASI ANALİZİ 🌌"}
         </h1>
         <div style={{ width: '60px', height: '2px', backgroundColor: '#eab308', margin: '0 auto 25px auto', boxShadow: '0 0 8px #eab308' }}></div>
 
-        {acilimTuru === null && (
-          <div style={{ width: '100%', maxWidth: '400px', backgroundColor: '#111625', padding: '30px', borderRadius: '16px', border: '1px solid #1e293b', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', margin: '0 auto', boxSizing: 'border-box' }}>
-            <p style={{ color: '#c084fc', fontFamily: '"Cinzel", serif', fontSize: '18px', marginBottom: '20px', letterSpacing: '1px', textAlign: 'center' }}>Kader Formunu Doldurun</p>
-            
-            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Adınız:</label>
-              <input type="text" placeholder="Mistik bir isim..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
-            </div>
-
-            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Tarihiniz:</label>
-              <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
-            </div>
-
-            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz:</label>
-              <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
-            </div>
-
-            <div style={{ marginBottom: '15px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Yeri (Şehir):</label>
-              <input type="text" placeholder="Örn: İstanbul, Ankara..." value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
-            </div>
-
-            {dogumTarihi && (
-              <div style={{ marginBottom: '15px', textAlign: 'left', padding: '12px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
-                <div style={{ marginBottom: '4px' }}>
-                  <span style={{ color: '#c084fc', fontSize: '13px' }}>✨ Güneş Burcu: </span>
-                  <strong style={{ color: '#eab308', fontSize: '14px' }}>{kullaniciBurcu}</strong>
-                </div>
-                {dogumSaati && (
-                  <div>
-                    <span style={{ color: '#c084fc', fontSize: '13px' }}>🌅 Yükselen Burç: </span>
-                    <strong style={{ color: '#eab308', fontSize: '14px' }}>{yukselenBurcu}</strong>
-                  </div>
-                )}
-              </div>
-            )}
-
-            <div style={{ marginBottom: '30px', textAlign: 'left' }}>
-              <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Odaklanmak İstediğiniz Konu:</label>
-              <select value={odakKonusu} onChange={(e) => setOdakKonusu(e.target.value)} style={inputStili}>
-                <option value="genel" style={{backgroundColor: '#111625'}}>Genel Gidişat ve Kader</option>
-                <option value="ask" style={{backgroundColor: '#111625'}}>❤️ Aşk & İlişkiler</option>
-                <option value="kariyer" style={{backgroundColor: '#111625'}}>💼 Kariyer & Finans</option>
-                <option value="saglik" style={{backgroundColor: '#111625'}}>✨ Sağlık & Spiritüellik</option>
-              </select>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <button onClick={() => acilimiBaslat(1)} style={menuButonStili}>✦ Tek Kart Açılımı</button>
-              <button onClick={() => acilimiBaslat(3)} style={menuButonStili}>✦ Üç Kart (Geçmiş-Şimdi-Gelecek)</button>
-              <button onClick={() => acilimiBaslat(10)} style={menuButonStili}>✦ On Kart (Kelt Haçı Analizi)</button>
-            </div>
-          </div>
+        {/* --- SEKME 1: DOĞUM HARİTASI BİLEŞENİ --- */}
+        {aktifSekme === 'harita' && (
+          <DogumHaritasi />
         )}
 
-        {acilimTuru !== null && (
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            
-            <div style={{ width: '100%', maxWidth: '650px', margin: '0 auto 20px auto', padding: '15px', backgroundColor: '#111625', borderRadius: '12px', border: '1px solid #3b0764', textAlign: 'left', boxSizing: 'border-box' }}>
-              <span style={{ color: '#eab308', fontSize: '11px', fontWeight: 'bold', letterSpacing: '1px' }}>📅 {bugununTarihiYaz().toUpperCase()} BURÇ ENERJİSİ</span>
-              <p style={{ margin: '5px 0 0 0', color: '#cbd5e1', fontSize: '14px', fontStyle: 'italic' }}>{gunlukBurcYorumuGetir()}</p>
-            </div>
-
-            <p style={{ fontFamily: '"Cinzel", serif', color: '#eab308', fontWeight: 'bold', fontSize: isMobil ? '18px' : '20px', letterSpacing: '2px', margin: '0 0 5px 0', textAlign: 'center' }}>
-              {acilimTuru === 1 && "TEK KART AÇILIMI"}
-              {acilimTuru === 3 && "ÜÇ KART AÇILIMI"}
-              {acilimTuru === 10 && "ON KART (KELT HAÇI) RİTÜELİ"}
-            </p>
-            <p style={{ color: '#c084fc', fontSize: '14px', margin: '0 0 20px 0', textAlign: 'center' }}>
-              Sevgili {kullaniciAdi || 'Misafir'} ({kullaniciBurcu} / Yükselen: {yukselenBurcu}), Odak: {odakMetniGetir()}
-            </p>
-
-            <div style={{
-              background: 'linear-gradient(90deg, rgba(147,51,234,0.1) 0%, rgba(234,179,8,0.15) 50%, rgba(147,51,234,0.1) 100%)',
-              border: '1px solid rgba(234,179,8,0.4)', borderRadius: '30px', padding: '8px 20px',
-              marginBottom: '25px', color: '#f8fafc', fontSize: isMobil ? '13px' : '14px',
-              fontFamily: '"Cinzel", serif', boxShadow: '0 0 15px rgba(234,179,8,0.15)'
-            }}>
-              {acilimTuru === 10 && dizilenKartSayisi < 10 ? (
-                <span>⚡ Mistik Rehber: {desteRituelDurumu === "bekliyor" ? "Enerjini odakla ve desteye dokun..." : `Kartlar yerleşiyor (${dizilenKartSayisi}/10) - Tıklamaya devam et!`}</span>
-              ) : (
-                <span>✨ Mistik Rehber: {herkesAcildiMi ? "Tüm sırlar açığa çıktı! Şimdi aşağıdan kehanetini başlat veya incelemek için kartlara tıkla." : "Kartların gizemini aralamak ve yakından incelemek için üzerlerine tıkla."}</span>
-              )}
-            </div>
-
-            {acilimTuru === 10 && dizilenKartSayisi < 10 && (
-              <div style={{ width: '100%', maxWidth: '500px', margin: '0 auto 30px auto', backgroundColor: 'rgba(17,22,37,0.6)', padding: '20px', borderRadius: '16px', border: '1px solid #1e293b', boxSizing: 'border-box' }}>
-                <p style={{ color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '15px', letterSpacing: '1px', margin: '0 0 10px 0' }}>
-                  {desteRituelDurumu === "bekliyor" && "✦ Desteye Tıklayarak Enerjinizi Yükleyin ve Karıştırın ✦"}
-                  {desteRituelDurumu === "bolundu" && "🔮 Deste 3 Parçaya Bölünerek Enerjiniz Sentezleniyor..."}
-                  {desteRituelDurumu === "birlesti" && `🔮 Desteye Tek Tek Tıklayarak 10 Kartı Yerleştirin (${dizilenKartSayisi}/10)`}
-                </p>
-                <div onClick={desteTiklaRituel} className={`deste-yigin ${desteRituelDurumu}`}>
-                  <div className="deste-parca p-sol"><img src={kartArkasiResmi} style={{width:'100%', height:'100%', objectFit:'cover', borderRadius:'8px', opacity:0.6}}/></div>
-                  <div className="deste-parca p-sag"><img src={kartArkasiResmi} style={{width:'100%', height:'100%', objectFit:'cover', borderRadius:'8px', opacity:0.6}}/></div>
-                  <div className="deste-parca p-ana"><img src={kartArkasiResmi} style={{width:'100%', height:'100%', objectFit:'cover', borderRadius:'8px'}}/></div>
-                </div>
-              </div>
-            )}
-
-            {acilimTuru !== 10 && (
-              <div style={{ display: 'flex', gap: isMobil ? '15px' : '20px', justifyContent: 'center', flexWrap: 'wrap', margin: '0 auto 40px auto', width: '100%' }}>
-                {secilenKartlar.map((kart, indeks) => (
-                  <div key={indeks} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <span style={{ marginBottom: '10px', color: '#c084fc', fontSize: '13px', fontFamily: '"Cinzel", serif', fontWeight: 'bold' }}>
-                      {acilimTuru === 3 ? (indeks === 0 ? "GEÇMİŞ" : indeks === 1 ? "ŞİMDİ" : "GELECEK") : "KADER KARTI"}
-                    </span>
-                    <div onClick={() => kartiCevir(indeks)} style={{ width: isMobil ? '130px' : '150px', height: isMobil ? '215px' : '250px', perspective: '1000px', cursor: 'pointer' }}>
-                      <div style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d', transition: 'transform 0.6s', transform: kart.acik ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
-                        <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', borderRadius: '10px', padding: '4px', background: '#1e293b' }}>
-                          <img src={kartArkasiResmi} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
-                        </div>
-                        <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', transform: kart.ters ? 'rotateY(180deg) rotate(180deg)' : 'rotateY(180deg)', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)' }}>
-                          <img src={`/assets/cards${kart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {acilimTuru === 10 && (
-              <div style={{
-                display: 'flex', 
-                flexDirection: isMobil ? 'column' : 'row',
-                justifyContent: 'center', alignItems: 'center', gap: isMobil ? '30px' : '40px',
-                flexWrap: 'wrap', margin: '10px auto 40px auto', width: '100%', maxWidth: '1050px',
-                backgroundColor: 'rgba(11,15,30,0.4)', padding: isMobil ? '20px 10px' : '30px 20px', 
-                borderRadius: '24px', border: '1px solid rgba(59,7,100,0.4)', boxSizing: 'border-box'
-              }}>
+        {/* --- SEKME 2: TAROT AÇILIMI MODU --- */}
+        {aktifSekme === 'tarot' && (
+          <>
+            {acilimTuru === null && (
+              <div style={{ width: '100%', maxWidth: '400px', backgroundColor: '#111625', padding: '30px', borderRadius: '16px', border: '1px solid #1e293b', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', margin: '0 auto', boxSizing: 'border-box' }}>
+                <p style={{ color: '#c084fc', fontFamily: '"Cinzel", serif', fontSize: '18px', marginBottom: '20px', letterSpacing: '1px', textAlign: 'center' }}>Kader Formunu Doldurun</p>
                 
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: isMobil ? '95px 95px 95px' : '110px 110px 110px',
-                  gridTemplateRows: isMobil ? '160px 160px 160px' : '185px 185px 185px',
-                  gap: isMobil ? '8px' : '15px',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative'
-                }}>
-                  <div style={{ gridArea: '1 / 2 / 2 / 3' }}>{renderKeltKarti(4)}</div>
-                  <div style={{ gridArea: '2 / 1 / 3 / 2' }}>{renderKeltKarti(3)}</div>
-                  <div style={{ gridArea: '2 / 2 / 3 / 3', position: 'relative', width: isMobil ? '95px' : '110px', height: isMobil ? '160px' : '185px', display:'flex', justifyContent:'center', alignItems:'center' }}>
-                    {renderKeltKarti(0, false)}
-                    {secilenKartlar[1] && (
-                      <div style={{ position: 'absolute', transform: 'rotate(90deg)', zIndex: 5, boxShadow: '0 0 20px rgba(0,0,0,0.8)' }}>
-                        {renderKeltKarti(1, true)}
+                <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+                  <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Adınız:</label>
+                  <input type="text" placeholder="Mistik bir isim..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
+                </div>
+
+                <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+                  <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Tarihiniz:</label>
+                  <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
+                </div>
+
+                <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+                  <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz:</label>
+                  <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
+                </div>
+
+                <div style={{ marginBottom: '15px', textAlign: 'left' }}>
+                  <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Yeri (Şehir):</label>
+                  <input type="text" placeholder="Örn: İstanbul, Ankara..." value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
+                </div>
+
+                {dogumTarihi && (
+                  <div style={{ marginBottom: '15px', textAlign: 'left', padding: '12px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
+                    <div style={{ marginBottom: '4px' }}>
+                      <span style={{ color: '#c084fc', fontSize: '13px' }}>✨ Güneş Burcu: </span>
+                      <strong style={{ color: '#eab308', fontSize: '14px' }}>{kullaniciBurcu}</strong>
+                    </div>
+                    {dogumSaati && (
+                      <div>
+                        <span style={{ color: '#c084fc', fontSize: '13px' }}>🌅 Yükselen Burç: </span>
+                        <strong style={{ color: '#eab308', fontSize: '14px' }}>{yukselenBurcu}</strong>
                       </div>
                     )}
                   </div>
-                  <div style={{ gridArea: '2 / 3 / 3 / 4' }}>{renderKeltKarti(5)}</div>
-                  <div style={{ gridArea: '3 / 2 / 4 / 3' }}>{renderKeltKarti(2)}</div>
+                )}
+
+                <div style={{ marginBottom: '30px', textAlign: 'left' }}>
+                  <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Odaklanmak İstediğiniz Konu:</label>
+                  <select value={odakKonusu} onChange={(e) => setOdakKonusu(e.target.value)} style={inputStili}>
+                    <option value="genel" style={{backgroundColor: '#111625'}}>Genel Gidişat ve Kader</option>
+                    <option value="ask" style={{backgroundColor: '#111625'}}>❤️ Aşk & İlişkiler</option>
+                    <option value="kariyer" style={{backgroundColor: '#111625'}}>💼 Kariyer & Finans</option>
+                    <option value="saglik" style={{backgroundColor: '#111625'}}>✨ Sağlık & Spiritüellik</option>
+                  </select>
                 </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                  <button onClick={() => acilimiBaslat(1)} style={menuButonStili}>✦ Tek Kart Açılımı</button>
+                  <button onClick={() => acilimiBaslat(3)} style={menuButonStili}>✦ Üç Kart (Geçmiş-Şimdi-Gelecek)</button>
+                  <button onClick={() => acilimiBaslat(10)} style={menuButonStili}>✦ On Kart (Kelt Haçı Analizi)</button>
+                </div>
+              </div>
+            )}
+
+            {acilimTuru !== null && (
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                
+                <div style={{ width: '100%', maxWidth: '650px', margin: '0 auto 20px auto', padding: '15px', backgroundColor: '#111625', borderRadius: '12px', border: '1px solid #3b0764', textAlign: 'left', boxSizing: 'border-box' }}>
+                  <span style={{ color: '#eab308', fontSize: '11px', fontWeight: 'bold', letterSpacing: '1px' }}>📅 {bugununTarihiYaz().toUpperCase()} BURÇ ENERJİSİ</span>
+                  <p style={{ margin: '5px 0 0 0', color: '#cbd5e1', fontSize: '14px', fontStyle: 'italic' }}>{gunlukBurcYorumuGetir()}</p>
+                </div>
+
+                <p style={{ fontFamily: '"Cinzel", serif', color: '#eab308', fontWeight: 'bold', fontSize: isMobil ? '18px' : '20px', letterSpacing: '2px', margin: '0 0 5px 0', textAlign: 'center' }}>
+                  {acilimTuru === 1 && "TEK KART AÇILIMI"}
+                  {acilimTuru === 3 && "ÜÇ KART AÇILIMI"}
+                  {acilimTuru === 10 && "ON KART (KELT HAÇI) RİTÜELİ"}
+                </p>
+                <p style={{ color: '#c084fc', fontSize: '14px', margin: '0 0 20px 0', textAlign: 'center' }}>
+                  Sevgili {kullaniciAdi || 'Misafir'} ({kullaniciBurcu} / Yükselen: {yukselenBurcu}), Odak: {odakMetniGetir()}
+                </p>
 
                 <div style={{
-                  display: 'flex', 
-                  flexDirection: isMobil ? 'row' : 'column',
-                  gap: isMobil ? '10px' : '15px',
-                  borderLeft: isMobil ? 'none' : '2px dashed rgba(234,179,8,0.3)',
-                  borderTop: isMobil ? '2px dashed rgba(234,179,8,0.3)' : 'none',
-                  paddingLeft: isMobil ? '0' : '30px',
-                  paddingTop: isMobil ? '20px' : '0',
-                  justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', width: isMobil ? '100%' : 'auto'
+                  background: 'linear-gradient(90deg, rgba(147,51,234,0.1) 0%, rgba(234,179,8,0.15) 50%, rgba(147,51,234,0.1) 100%)',
+                  border: '1px solid rgba(234,179,8,0.4)', borderRadius: '30px', padding: '8px 20px',
+                  marginBottom: '25px', color: '#f8fafc', fontSize: isMobil ? '13px' : '14px',
+                  fontFamily: '"Cinzel", serif', boxShadow: '0 0 15px rgba(234,179,8,0.15)'
                 }}>
-                  {[9, 8, 7, 6].map(i => <div key={i}>{renderKeltKarti(i)}</div>)}
+                  {acilimTuru === 10 && dizilenKartSayisi < 10 ? (
+                    <span>⚡ Mistik Rehber: {desteRituelDurumu === "bekliyor" ? "Enerjini odakla ve desteye dokun..." : `Kartlar yerleşiyor (${dizilenKartSayisi}/10) - Tıklamaya devam et!`}</span>
+                  ) : (
+                    <span>✨ Mistik Rehber: {herkesAcildiMi ? "Tüm sırlar açığa çıktı! Şimdi aşağıdan kehanetini başlat veya incelemek için kartlara tıkla." : "Kartların gizemini aralamak ve yakından incelemek için üzerlerine tıkla."}</span>
+                  )}
+                </div>
+
+                {acilimTuru === 10 && dizilenKartSayisi < 10 && (
+                  <div style={{ width: '100%', maxWidth: '500px', margin: '0 auto 30px auto', backgroundColor: 'rgba(17,22,37,0.6)', padding: '20px', borderRadius: '16px', border: '1px solid #1e293b', boxSizing: 'border-box' }}>
+                    <p style={{ color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '15px', letterSpacing: '1px', margin: '0 0 10px 0' }}>
+                      {desteRituelDurumu === "bekliyor" && "✦ Desteye Tıklayarak Enerjinizi Yükleyin ve Karıştırın ✦"}
+                      {desteRituelDurumu === "bolundu" && "🔮 Deste 3 Parçaya Bölünerek Enerjiniz Sentezleniyor..."}
+                      {desteRituelDurumu === "birlesti" && `🔮 Desteye Tek Tek Tıklayarak 10 Kartı Yerleştirin (${dizilenKartSayisi}/10)`}
+                    </p>
+                    <div onClick={desteTiklaRituel} className={`deste-yigin ${desteRituelDurumu}`}>
+                      <div className="deste-parca p-sol"><img src={kartArkasiResmi} style={{width:'100%', height:'100%', objectFit:'cover', borderRadius:'8px', opacity:0.6}}/></div>
+                      <div className="deste-parca p-sag"><img src={kartArkasiResmi} style={{width:'100%', height:'100%', objectFit:'cover', borderRadius:'8px', opacity:0.6}}/></div>
+                      <div className="deste-parca p-ana"><img src={kartArkasiResmi} style={{width:'100%', height:'100%', objectFit:'cover', borderRadius:'8px'}}/></div>
+                    </div>
+                  </div>
+                )}
+
+                {acilimTuru !== 10 && (
+                  <div style={{ display: 'flex', gap: isMobil ? '15px' : '20px', justifyContent: 'center', flexWrap: 'wrap', margin: '0 auto 40px auto', width: '100%' }}>
+                    {secilenKartlar.map((kart, indeks) => (
+                      <div key={indeks} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <span style={{ marginBottom: '10px', color: '#c084fc', fontSize: '13px', fontFamily: '"Cinzel", serif', fontWeight: 'bold' }}>
+                          {acilimTuru === 3 ? (indeks === 0 ? "GEÇMİŞ" : indeks === 1 ? "ŞİMDİ" : "GELECEK") : "KADER KARTI"}
+                        </span>
+                        <div onClick={() => kartiCevir(indeks)} style={{ width: isMobil ? '130px' : '150px', height: isMobil ? '215px' : '250px', perspective: '1000px', cursor: 'pointer' }}>
+                          <div style={{ position: 'relative', width: '100%', height: '100%', transformStyle: 'preserve-3d', transition: 'transform 0.6s', transform: kart.acik ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+                            <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', borderRadius: '10px', padding: '4px', background: '#1e293b' }}>
+                              <img src={kartArkasiResmi} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
+                            </div>
+                            <div style={{ position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden', transform: kart.ters ? 'rotateY(180deg) rotate(180deg)' : 'rotateY(180deg)', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)' }}>
+                              <img src={`/assets/cards${kart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover' }} />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {acilimTuru === 10 && (
+                  <div style={{
+                    display: 'flex', 
+                    flexDirection: isMobil ? 'column' : 'row',
+                    justifyContent: 'center', alignItems: 'center', gap: isMobil ? '30px' : '40px',
+                    flexWrap: 'wrap', margin: '10px auto 40px auto', width: '100%', maxWidth: '1050px',
+                    backgroundColor: 'rgba(11,15,30,0.4)', padding: isMobil ? '20px 10px' : '30px 20px', 
+                    borderRadius: '24px', border: '1px solid rgba(59,7,100,0.4)', boxSizing: 'border-box'
+                  }}>
+                    
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobil ? '95px 95px 95px' : '110px 110px 110px',
+                      gridTemplateRows: isMobil ? '160px 160px 160px' : '185px 185px 185px',
+                      gap: isMobil ? '8px' : '15px',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'relative'
+                    }}>
+                      <div style={{ gridArea: '1 / 2 / 2 / 3' }}>{renderKeltKarti(4)}</div>
+                      <div style={{ gridArea: '2 / 1 / 3 / 2' }}>{renderKeltKarti(3)}</div>
+                      <div style={{ gridArea: '2 / 2 / 3 / 3', position: 'relative', width: isMobil ? '95px' : '110px', height: isMobil ? '160px' : '185px', display:'flex', justifyContent:'center', alignItems:'center' }}>
+                        {renderKeltKarti(0, false)}
+                        {secilenKartlar[1] && (
+                          <div style={{ position: 'absolute', transform: 'rotate(90deg)', zIndex: 5, boxShadow: '0 0 20px rgba(0,0,0,0.8)' }}>
+                            {renderKeltKarti(1, true)}
+                          </div>
+                        )}
+                      </div>
+                      <div style={{ gridArea: '2 / 3 / 3 / 4' }}>{renderKeltKarti(5)}</div>
+                      <div style={{ gridArea: '3 / 2 / 4 / 3' }}>{renderKeltKarti(2)}</div>
+                    </div>
+
+                    <div style={{
+                      display: 'flex', 
+                      flexDirection: isMobil ? 'row' : 'column',
+                      gap: isMobil ? '10px' : '15px',
+                      borderLeft: isMobil ? 'none' : '2px dashed rgba(234,179,8,0.3)',
+                      borderTop: isMobil ? '2px dashed rgba(234,179,8,0.3)' : 'none',
+                      paddingLeft: isMobil ? '0' : '30px',
+                      paddingTop: isMobil ? '20px' : '0',
+                      justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', width: isMobil ? '100%' : 'auto'
+                    }}>
+                      {[9, 8, 7, 6].map(i => <div key={i}>{renderKeltKarti(i)}</div>)}
+                    </div>
+
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginBottom: '40px', flexWrap: 'wrap' }}>
+                  <button onClick={() => acilimiBaslat(acilimTuru)} disabled={yukleniyorMu} style={aksiyonButonStili}>Kaderi Yeniden Fısılda</button>
+                  <button onClick={menuyeDon} disabled={yukleniyorMu} style={{ ...aksiyonButonStili, backgroundColor: '#334155', border: '1px solid #475569' }}>Girişe Dön</button>
+                </div>
+                
+                {herkesAcildiMi && !aiYorumu && (
+                  <div style={{ marginBottom: '40px' }}>
+                    {yukleniyorMu ? (
+                      <p style={{ color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '18px', fontWeight: 'bold' }}>
+                        🔮 Mistik enerji veritabanına işleniyor, lütfen bekleyin...
+                      </p>
+                    ) : (
+                      <button onClick={falimiYorumla} style={{ ...aksiyonButonStili, background: 'linear-gradient(135deg, #a855f7 0%, #d8b4fe 100%)', color: '#090d16', fontSize: '18px', padding: '16px 36px', border: 'none', boxShadow: '0 0 20px rgba(216, 180, 254, 0.4)' }}>
+                        ✨ Kehanetini Başlat & Kaydet ✨
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {aiYorumu && (
+                  <div style={{ width: '100%', maxWidth: '750px', margin: '0 auto 40px auto', padding: '30px', backgroundColor: '#17112a', borderRadius: '16px', border: '2px solid #d8b4fe', boxShadow: '0 0 25px rgba(168, 85, 247, 0.2)', textAlign: 'left', boxSizing: 'border-box' }}>
+                    <h3 style={{ fontFamily: '"Cinzel", serif', color: '#eab308', margin: '0 0 15px 0', fontSize: '20px' }}>🔮 Mistik Rehberin Analizi</h3>
+                    <p style={{ margin: 0, color: '#f1f5f9', fontSize: '16px', lineHeight: '1.7', whiteSpace: 'pre-line' }}>{aiYorumu}</p>
+                  </div>
+                )}
+
+                <div style={{ width: '100%', height: '1px', backgroundColor: '#334155', margin: '20px 0 40px 0' }}></div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', maxWidth: '750px', margin: '0 auto', textAlign: 'left', boxSizing: 'border-box' }}>
+                  {secilenKartlar.map((kart, index) => (
+                    kart.acik && (
+                      <div key={index} style={{ padding: '20px', backgroundColor: '#111625', borderRadius: '14px', border: '1px solid #1e293b', borderLeft: '4px solid #eab308', boxSizing: 'border-box' }}>
+                        <h4 style={{ margin: '0 0 8px 0', color: '#eab308', fontSize: '16px', fontFamily: '"Cinzel", serif' }}>
+                          {acilimTuru === 10 ? keltKonumlari[index] : `${index + 1}. Kart`}: {kart.veri.isim}{kart.ters ? ' (Ters)' : ''}
+                        </h4>
+                        <p style={{ margin: 0, color: '#cbd5e1', fontSize: '15px', lineHeight: '1.6' }}>{anlamGetir(kart.veri, kart.ters, acilimTuru === 10 ? index : null)}</p>
+                      </div>
+                    )
+                  ))}
                 </div>
 
               </div>
             )}
-
-            <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginBottom: '40px', flexWrap: 'wrap' }}>
-              <button onClick={() => acilimiBaslat(acilimTuru)} disabled={yukleniyorMu} style={aksiyonButonStili}>Kaderi Yeniden Fısılda</button>
-              <button onClick={menuyeDon} disabled={yukleniyorMu} style={{ ...aksiyonButonStili, backgroundColor: '#334155', border: '1px solid #475569' }}>Girişe Dön</button>
-            </div>
-            
-            {herkesAcildiMi && !aiYorumu && (
-              <div style={{ marginBottom: '40px' }}>
-                {yukleniyorMu ? (
-                  <p style={{ color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '18px', fontWeight: 'bold' }}>
-                    🔮 Mistik enerji veritabanına işleniyor, lütfen bekleyin...
-                  </p>
-                ) : (
-                  <button onClick={falimiYorumla} style={{ ...aksiyonButonStili, background: 'linear-gradient(135deg, #a855f7 0%, #d8b4fe 100%)', color: '#090d16', fontSize: '18px', padding: '16px 36px', border: 'none', boxShadow: '0 0 20px rgba(216, 180, 254, 0.4)' }}>
-                    ✨ Kehanetini Başlat & Kaydet ✨
-                  </button>
-                )}
-              </div>
-            )}
-
-            {aiYorumu && (
-              <div style={{ width: '100%', maxWidth: '750px', margin: '0 auto 40px auto', padding: '30px', backgroundColor: '#17112a', borderRadius: '16px', border: '2px solid #d8b4fe', boxShadow: '0 0 25px rgba(168, 85, 247, 0.2)', textAlign: 'left', boxSizing: 'border-box' }}>
-                <h3 style={{ fontFamily: '"Cinzel", serif', color: '#eab308', margin: '0 0 15px 0', fontSize: '20px' }}>🔮 Mistik Rehberin Analizi</h3>
-                <p style={{ margin: 0, color: '#f1f5f9', fontSize: '16px', lineHeight: '1.7', whiteSpace: 'pre-line' }}>{aiYorumu}</p>
-              </div>
-            )}
-
-            <div style={{ width: '100%', height: '1px', backgroundColor: '#334155', margin: '20px 0 40px 0' }}></div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '100%', maxWidth: '750px', margin: '0 auto', textAlign: 'left', boxSizing: 'border-box' }}>
-              {secilenKartlar.map((kart, index) => (
-                kart.acik && (
-                  <div key={index} style={{ padding: '20px', backgroundColor: '#111625', borderRadius: '14px', border: '1px solid #1e293b', borderLeft: '4px solid #eab308', boxSizing: 'border-box' }}>
-                    <h4 style={{ margin: '0 0 8px 0', color: '#eab308', fontSize: '16px', fontFamily: '"Cinzel", serif' }}>
-                      {acilimTuru === 10 ? keltKonumlari[index] : `${index + 1}. Kart`}: {kart.veri.isim}{kart.ters ? ' (Ters)' : ''}
-                    </h4>
-                    <p style={{ margin: 0, color: '#cbd5e1', fontSize: '15px', lineHeight: '1.6' }}>{anlamGetir(kart.veri, kart.ters, acilimTuru === 10 ? index : null)}</p>
-                  </div>
-                )
-              ))}
-            </div>
-
-          </div>
+          </>
         )}
+
       </div>
 
-     {odaklananKart && (
-  <div className="kart-modal-bg" onClick={() => setOdaklananKart(null)}>
-    <div className="kart-modal-box" onClick={(e) => e.stopPropagation()}>
-      <button onClick={() => setOdaklananKart(null)} style={{ position: 'absolute', top: '15px', right: '15px', background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '20px', cursor: 'pointer' }}>✖</button>
-      <span style={{ color: '#c084fc', fontSize: '12px', fontFamily: '"Cinzel", serif', letterSpacing: '1px' }}>{odaklananKart.konumAd}</span>
-      <h3 style={{ margin: '5px 0 15px 0', color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '22px' }}>{odaklananKart.veri.isim} {odaklananKart.ters ? '(Ters)' : ''}</h3>
-      
-      <div style={{ width: '180px', height: '300px', margin: '0 auto 20px auto', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)', boxShadow: '0 10px 25px rgba(0,0,0,0.8)' }}>
-        <img src={`/assets/cards${odaklananKart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover', transform: odaklananKart.ters ? 'rotate(180deg)' : 'none' }} />
-      </div>
+      {/* KART İNCELEME MODALI */}
+      {odaklananKart && (
+        <div className="kart-modal-bg" onClick={() => setOdaklananKart(null)}>
+          <div className="kart-modal-box" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setOdaklananKart(null)} style={{ position: 'absolute', top: '15px', right: '15px', background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '20px', cursor: 'pointer' }}>✖</button>
+            <span style={{ color: '#c084fc', fontSize: '12px', fontFamily: '"Cinzel", serif', letterSpacing: '1px' }}>{odaklananKart.konumAd}</span>
+            <h3 style={{ margin: '5px 0 15px 0', color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '22px' }}>{odaklananKart.veri.isim} {odaklananKart.ters ? '(Ters)' : ''}</h3>
+            
+            <div style={{ width: '180px', height: '300px', margin: '0 auto 20px auto', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)', boxShadow: '0 10px 25px rgba(0,0,0,0.8)' }}>
+              <img src={`/assets/cards${odaklananKart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover', transform: odaklananKart.ters ? 'rotate(180deg)' : 'none' }} />
+            </div>
 
-      <div style={{ maxHeight: '200px', overflowY: 'auto', textAlign: 'left', padding: '10px', background: '#090d16', borderRadius: '8px', border: '1px solid #334155' }}>
-        <p style={{ margin: 0, color: '#f1f5f9', fontSize: '14px', lineHeight: '1.6' }}>
-          {anlamGetir(odaklananKart.veri, odaklananKart.ters, acilimTuru === 10 ? keltKonumlari.indexOf(odaklananKart.konumAd) : null)}
-        </p>
-      </div>
+            <div style={{ maxHeight: '200px', overflowY: 'auto', textAlign: 'left', padding: '10px', background: '#090d16', borderRadius: '8px', border: '1px solid #334155' }}>
+              <p style={{ margin: 0, color: '#f1f5f9', fontSize: '14px', lineHeight: '1.6' }}>
+                {anlamGetir(odaklananKart.veri, odaklananKart.ters, acilimTuru === 10 ? keltKonumlari.indexOf(odaklananKart.konumAd) : null)}
+              </p>
+            </div>
 
-      {/* MODAL İÇİ REKLAM BÖLÜMÜ */}
-      <AdBanner dataAdSlot="1234567890" dataAdFormat="fluid" />
+            {/* MODAL İÇİ REKLAM BÖLÜMÜ */}
+            <AdBanner dataAdSlot="1234567890" dataAdFormat="fluid" />
 
-      <p style={{ margin: '15px 0 0 0', color: '#64748b', fontSize: '12px' }}>✦ Pencereyi kapatmak için dışarı veya çarpıya tıkla ✦</p>
-    </div>
-  </div>
-)}
+            <p style={{ margin: '15px 0 0 0', color: '#64748b', fontSize: '12px' }}>✦ Pencereyi kapatmak için dışarı veya çarpıya tıkla ✦</p>
+          </div>
+        </div>
+      )}
 
     </div>
   );
@@ -708,3 +730,4 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
 const inputStili = { width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #3b0764', backgroundColor: '#090d16', color: '#f8fafc', fontSize: '15px', fontFamily: '"Playfair Display", serif', boxSizing: 'border-box', marginTop: '5px' };
 const menuButonStili = { width: '100%', backgroundColor: '#131927', color: '#e2e8f0', border: '1px solid #3b0764', padding: '14px 20px', fontSize: '15px', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif', letterSpacing: '1px', textAlign: 'center', boxSizing: 'border-box' };
 const aksiyonButonStili = { backgroundColor: '#581c87', color: '#f8fafc', border: '1px solid #a855f7', padding: '14px 24px', fontSize: '15px', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif', letterSpacing: '1px' };
+const tabButonStili = { color: '#f8fafc', padding: '10px 18px', borderRadius: '20px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif', fontSize: '14px' };
