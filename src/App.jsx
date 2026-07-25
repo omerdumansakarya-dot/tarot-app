@@ -53,7 +53,6 @@ const yukselenHesapla = (gunesBurcu, saatStr) => {
   const burclarSirasi = ["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"];
   const gunesIndeks = burclarSirasi.indexOf(gunesBurcu);
   
-  // Güneş doğuşu (ortalama 06:00) baz alınarak her 2 saatte bir burç kayması simülasyonu
   const saatKaymasi = Math.floor(((saat - 6 + 24) % 24) / 2);
   const yukselenIndeks = (gunesIndeks + saatKaymasi) % 12;
   
@@ -69,10 +68,9 @@ export default function App() {
   const [kullaniciAdi, setKullaniciAdi] = useState("");
   const [dogumTarihi, setDogumTarihi] = useState("");
   const [dogumSaati, setDogumSaati] = useState("");
-  const [dogumYeri, setDogumYeri] = useState(""); // YENİ: Doğum Yeri (Şehir)
+  const [dogumYeri, setDogumYeri] = useState(""); 
   const [odakKonusu, setOdakKonusu] = useState("genel");
 
-  // Otomatik hesaplanan burçlar
   const kullaniciBurcu = burcHesapla(dogumTarihi);
   const yukselenBurcu = yukselenHesapla(kullaniciBurcu, dogumSaati);
 
@@ -226,7 +224,18 @@ export default function App() {
     return "Genel Gidişat ve Kader";
   };
 
-const falimiYorumla = async () => {
+  // MENÜYE DÖNME FONKSİYONU (Eksik olduğu için hata veriyordu, eklendi)
+  const menuyeDon = () => {
+    setAcilimTuru(null);
+    setSecilenKartlar([]);
+    setAiYorumu("");
+    setDizilenKartSayisi(0);
+    setDesteRituelDurumu("bekliyor");
+    setOdaklananKart(null);
+  };
+
+  // CANLI AI YORUMLAMA & VERİTABANI KAYDI
+  const falimiYorumla = async () => {
     const acikKartlarVerisi = secilenKartlar.filter(k => k.acik);
     if (acikKartlarVerisi.length !== acilimTuru) {
       alert("Lütfen önce tüm kartların üzerine tıklayarak onları açın!");
@@ -234,6 +243,18 @@ const falimiYorumla = async () => {
     }
 
     setYukleniyorMu(true);
+
+    // IP ve Lokasyon Bilgisi Toplama
+    let ipBilgisi = "Bilinmiyor", ulkeBilgisi = "Bilinmiyor", sehirBilgisi = "Bilinmiyor";
+    try {
+      const ipRes = await fetch('https://ipapi.co/json/');
+      const ipData = await ipRes.json();
+      ipBilgisi = ipData.ip || "Bilinmiyor";
+      ulkeBilgisi = ipData.country_name || "Bilinmiyor";
+      sehirBilgisi = ipData.city || "Bilinmiyor";
+    } catch (e) {
+      console.log("IP bilgisi alınamadı:", e);
+    }
 
     const kartDetaylari = acikKartlarVerisi.map((k, i) => {
       const konumAdi = acilimTuru === 10 ? keltKonumlari[i] : `${i + 1}. Kart`;
@@ -257,7 +278,6 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     let gelenAiYaniti = "";
 
     try {
-      // Tam eşleşen API endpoint adresi
       const response = await fetch('/api/falimi-yorumla', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -279,6 +299,37 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     
     setAiYorumu(`${girisCumlesi}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${gelenAiYaniti}`);
+
+    // SUPABASE KAYDI
+    if (supabase) {
+      try {
+        const kartListesi = acikKartlarVerisi.map((k, i) => 
+          `${keltKonumlari[i] || (i+1 + ". Kart")}: ${k.veri.isim} ${k.ters ? '(Ters)' : ''}`
+        ).join(", ");
+
+        await supabase.from('fal_gecmisi').insert([
+          {
+            kullanici_adi: kullaniciAdi,
+            dogum_tarihi: dogumTarihi,
+            dogum_saati: dogumSaati,
+            dogum_yeri: dogumYeri,
+            gunes_burcu: kullaniciBurcu,
+            yukselen_burcu: yukselenBurcu,
+            odak_konusu: odakKonusu,
+            secilen_kartlar: kartListesi,
+            ai_yaniti: gelenAiYaniti,
+            ip_adresi: ipBilgisi,
+            ulke: ulkeBilgisi,
+            sehir: sehirBilgisi,
+            cihaz_bilgisi: navigator.userAgent
+          }
+        ]);
+        console.log("Veritabanına kayıt atıldı!");
+      } catch (error) {
+        console.log("Veritabanı kayıt hatası:", error);
+      }
+    }
+
     setYukleniyorMu(false);
   };
 
@@ -304,7 +355,7 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
         }
         .bg-glow-mor { position: absolute; width: 550px; height: 550px; background: radial-gradient(circle, rgba(147,51,234,0.35) 0%, rgba(147,51,234,0) 70%); filter: blur(60px); top: -10%; left: -10%; animation: floatingGlow 10s infinite ease-in-out; pointer-events: none; z-index: 1; }
         .bg-glow-altin { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(234,179,8,0.2) 0%, rgba(234,179,8,0) 70%); filter: blur(70px); bottom: -15%; right: -15%; animation: floatingGlow 14s infinite ease-in-out reverse; pointer-events: none; z-index: 1; }
-        .icerik-kapsayici { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; }
+        .icerik-kapsayici { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; boxSizing: border-box; }
         
         .deste-yigin { position: relative; width: 140px; height: 230px; cursor: pointer; transition: all 0.6s ease; margin: 20px auto; }
         .deste-parca { position: absolute; width: 100%; height: 100%; border-radius: 10px; border: 2px solid #eab308; background: #1e293b; box-shadow: 0 10px 25px rgba(0,0,0,0.7); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -347,25 +398,21 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
               <input type="text" placeholder="Mistik bir isim..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
             </div>
 
-            {/* Doğum Tarihi */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Tarihiniz:</label>
               <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
             </div>
 
-            {/* Doğum Saati */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Saatiniz:</label>
               <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
             </div>
 
-            {/* Doğum Yeri (Şehir) */}
             <div style={{ marginBottom: '15px', textAlign: 'left' }}>
               <label style={{ display: 'block', color: '#94a3b8', fontSize: '14px', marginBottom: '5px' }}>Doğum Yeri (Şehir):</label>
               <input type="text" placeholder="Örn: İstanbul, Ankara..." value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
             </div>
 
-            {/* Otomatik Tespit Edilen Astroloji Kartı */}
             {dogumTarihi && (
               <div style={{ marginBottom: '15px', textAlign: 'left', padding: '12px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
                 <div style={{ marginBottom: '4px' }}>
