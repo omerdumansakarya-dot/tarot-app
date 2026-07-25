@@ -3,6 +3,12 @@ import { createClient } from '@supabase/supabase-js'
 import tarotDestesi from '../tarot-veri.json'
 import burcYorumlari from '../burc-veri.json'
 
+// App.jsx dosyasının üstüne ekleyin:
+import DogumHaritasi from './DogumHaritasi';
+
+// App.jsx içerisinde görünmesini istediğiniz yere (örneğin sayfa altına veya bir tab arkasına):
+<DogumHaritasi />
+
 // SUPABASE BAĞLANTI
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://mwdspioshyrsmdshbzkp.supabase.co";
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
