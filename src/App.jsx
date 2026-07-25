@@ -278,7 +278,8 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     let gelenAiYaniti = "";
 
     try {
-      const response = await fetch('/api/falimi-yorumla', {
+      // Dosya adıyla tam eşleşen API adresi
+      const response = await fetch('/api/fal-yorumla', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: aiPrompt })
@@ -332,7 +333,7 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
 
     setYukleniyorMu(false);
   };
-
+  
   const herkesAcildiMi = secilenKartlar.length === acilimTuru && secilenKartlar.every(k => k.acik);
 
   return (

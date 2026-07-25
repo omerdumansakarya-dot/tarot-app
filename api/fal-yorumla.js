@@ -20,7 +20,8 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Prompt bulunamadı.' });
     }
 
-    const apiKey = process.env.NVIDIA_API_KEY || process.env.VITE_NVIDIA_API_KEY;
+    // Çalışan koddaki gibi doğrudan NVIDIA_API_KEY alıyoruz
+    const apiKey = process.env.NVIDIA_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: 'Sunucuda API anahtarı (NVIDIA_API_KEY) tanımlı değil.' });
     }
@@ -35,7 +36,7 @@ export default async function handler(req, res) {
         model: 'meta/llama-3.1-8b-instruct',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.6,
-        max_tokens: 600
+        max_tokens: 800 // Tarot yorumlarının yarım kalmaması için uzattık
       })
     });
 
@@ -48,6 +49,8 @@ export default async function handler(req, res) {
     }
 
     const answer = data?.choices?.[0]?.message?.content || 'Yanıt alınamadı.';
+    
+    // Hem 'answer' hem 'ai_yaniti' dönüyoruz ki frontend hangisini isterse okusun
     return res.status(200).json({ answer, ai_yaniti: answer });
 
   } catch (err) {
