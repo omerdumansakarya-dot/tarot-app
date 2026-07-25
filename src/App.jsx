@@ -3,10 +3,13 @@ import { createClient } from '@supabase/supabase-js'
 import tarotDestesi from '../tarot-veri.json'
 import burcYorumlari from '../burc-veri.json'
 
-// SUPABASE BAĞLANTI (Kendi URL ve Anon Key değerlerini buraya yazmalısın)
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+// SUPABASE BAĞLANTI
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://mwdspioshyrsmdshbzkp.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
+export const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY) 
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
+  : null;
 
 const kartArkasiResmi = "/assets/cards/CardBacks.png";
 
