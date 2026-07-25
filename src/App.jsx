@@ -226,7 +226,7 @@ export default function App() {
     return "Genel Gidişat ve Kader";
   };
 
-  const falimiYorumla = async () => {
+const falimiYorumla = async () => {
     const acikKartlarVerisi = secilenKartlar.filter(k => k.acik);
     if (acikKartlarVerisi.length !== acilimTuru) {
       alert("Lütfen önce tüm kartların üzerine tıklayarak onları açın!");
@@ -234,20 +234,7 @@ export default function App() {
     }
 
     setYukleniyorMu(true);
-    
-    // IP ve Lokasyon Bilgilerini Çekme
-    let ipBilgisi = "Bilinmiyor", ulkeBilgisi = "Bilinmiyor", sehirBilgisi = "Bilinmiyor";
-    try {
-      const ipRes = await fetch('https://ipapi.co/json/');
-      const ipData = await ipRes.json();
-      ipBilgisi = ipData.ip || "Bilinmiyor";
-      ulkeBilgisi = ipData.country_name || "Bilinmiyor";
-      sehirBilgisi = ipData.city || "Bilinmiyor";
-    } catch (e) {
-      console.log("IP bilgisi alınamadı:", e);
-    }
 
-    // NVIDIA AI için özel hazırlanmış Mistik Prompt
     const kartDetaylari = acikKartlarVerisi.map((k, i) => {
       const konumAdi = acilimTuru === 10 ? keltKonumlari[i] : `${i + 1}. Kart`;
       return `${konumAdi}: ${k.veri.isim} (${k.ters ? 'Ters' : 'Düz'}) - Temel Anlamı: ${anlamGetir(k.veri, k.ters, acilimTuru === 10 ? i : null)}`;
@@ -270,8 +257,9 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
     let gelenAiYaniti = "";
 
     try {
-      // Vercel Serverless Endpoint'ine Bağlantı
-      const response = await fetch('/api/fal-yorumla', {
+      // Eğer projedeki dosyanın adı Ask.js ise burayı '/api/Ask' yapmalısın.
+      // Eğer dosya adın fal-yorumla.js ise '/api/fal-yorumla' kalabilir.
+      const response = await fetch('/api/Ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: aiPrompt })
@@ -279,50 +267,21 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
 
       const data = await response.json();
 
-      if (response.ok && data.answer) {
-        gelenAiYaniti = data.answer;
+      if (response.ok && (data.answer || data.ai_yaniti)) {
+        gelenAiYaniti = data.answer || data.ai_yaniti;
       } else {
-        gelenAiYaniti = "Mistik enerjilerde geçici bir dalgalanma oldu: " + (data.error || "Lütfen tekrar deneyin.");
+        // SUNUCUDAN GELEN GERÇEK HATAYI EKRANA BASALIM
+        gelenAiYaniti = `[API HATASI KODU: ${response.status}] Sunucu Mesajı: ${JSON.stringify(data)}`;
       }
     } catch (err) {
       console.error("AI İstek Hatası:", err);
-      gelenAiYaniti = "Kehanet bağlantısı kurulurken bir hata oluştu. Lütfen bağlantınızı kontrol edin.";
+      gelenAiYaniti = `[BAĞLANTI/JS HATASI]: ${err.message}`;
     }
 
     let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
     
-    const kartListesi = acikKartlarVerisi.map((k, i) => 
-      `${keltKonumlari[i] || (i+1 + ". Kart")}: ${k.veri.isim} ${k.ters ? '(Ters)' : ''}`
-    ).join(", ");
-
-    // Ekrana Yorumu Yansıtma
     setAiYorumu(`${girisCumlesi}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${gelenAiYaniti}`);
-
-    try {
-      // SUPABASE VERİTABANINA GERÇEK AI CEVABINI KAYDETME
-      await supabase.from('fal_gecmisi').insert([
-        {
-          kullanici_adi: kullaniciAdi,
-          dogum_tarihi: dogumTarihi,
-          dogum_saati: dogumSaati,
-          dogum_yeri: dogumYeri,
-          gunes_burcu: kullaniciBurcu,
-          yukselen_burcu: yukselenBurcu,
-          odak_konusu: odakKonusu,
-          secilen_kartlar: kartListesi,
-          ai_yaniti: gelenAiYaniti,
-          ip_adresi: ipBilgisi,
-          ulke: ulkeBilgisi,
-          sehir: sehirBilgisi,
-          cihaz_bilgisi: navigator.userAgent
-        }
-      ]);
-      console.log("Veritabanına kayıt başarıyla atıldı!");
-    } catch (error) {
-      console.log("Veritabanı kayıt hatası:", error);
-    } finally {
-      setYukleniyorMu(false);
-    }
+    setYukleniyorMu(false);
   };
 
   const menuyeDon = () => {
