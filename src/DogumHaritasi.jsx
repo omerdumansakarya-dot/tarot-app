@@ -1,4 +1,13 @@
 import { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+// Supabase Bağlantısı
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://mwdspioshyrsmdshbzkp.supabase.co";
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "";
+
+const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY) 
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
+  : null;
 
 export default function DogumHaritasi() {
   const [kullaniciAdi, setKullaniciAdi] = useState("");
@@ -45,6 +54,8 @@ export default function DogumHaritasi() {
     setYukleniyorMu(true);
     setHaritaRaporu("");
 
+    let gelenRapor = "";
+
     try {
       const res = await fetch('/api/dogum-haritasi', {
         method: 'POST',
@@ -61,13 +72,53 @@ export default function DogumHaritasi() {
 
       const data = await res.json();
       if (res.ok && data.answer) {
-        setHaritaRaporu(data.answer);
+        gelenRapor = data.answer;
+        setHaritaRaporu(gelenRapor);
       } else {
-        setHaritaRaporu(`[Hata]: ${data.error || 'Rapor oluşturulamadı.'}`);
+        gelenRapor = `[Hata]: ${data.error || 'Rapor oluşturulamadı.'}`;
+        setHaritaRaporu(gelenRapor);
       }
     } catch (e) {
-      setHaritaRaporu(`[Bağlantı Hatası]: ${e.message}`);
+      gelenRapor = `[Bağlantı Hatası]: ${e.message}`;
+      setHaritaRaporu(gelenRapor);
     }
+
+    // IP ve Lokasyon Bilgisi Toplama
+    let ipBilgisi = "Bilinmiyor", ulkeBilgisi = "Bilinmiyor", sehirBilgisi = "Bilinmiyor";
+    try {
+      const ipRes = await fetch('https://ipapi.co/json/');
+      const ipData = await ipRes.json();
+      ipBilgisi = ipData.ip || "Bilinmiyor";
+      ulkeBilgisi = ipData.country_name || "Bilinmiyor";
+      sehirBilgisi = ipData.city || "Bilinmiyor";
+    } catch (e) {
+      console.log("IP bilgisi alınamadı:", e);
+    }
+
+    // SUPABASE KAYDI
+    if (supabase && gelenRapor && !gelenRapor.startsWith('[')) {
+      try {
+        await supabase.from('dogum_haritasi_gecmisi').insert([
+          {
+            kullanici_adi: kullaniciAdi,
+            dogum_tarihi: dogumTarihi,
+            dogum_saati: dogumSaati,
+            dogum_yeri: dogumYeri,
+            gunes_burcu: gunesBurcu,
+            yukselen_burcu: yukselenBurcu,
+            harita_raporu: gelenRapor,
+            ip_adresi: ipBilgisi,
+            ulke: ulkeBilgisi,
+            sehir: sehirBilgisi,
+            cihaz_bilgisi: navigator.userAgent
+          }
+        ]);
+        console.log("Doğum Haritası veritabanına başarıyla kaydedildi!");
+      } catch (err) {
+        console.log("Supabase veritabanı kayıt hatası:", err);
+      }
+    }
+
     setYukleniyorMu(false);
   };
 
@@ -102,7 +153,7 @@ export default function DogumHaritasi() {
       )}
 
       <button onClick={dogumHaritasiOlustur} disabled={yukleniyorMu} style={{ ...aksiyonButonStili, width: '100%' }}>
-        {yukleniyorMu ? "🔮 Yıldız Konumları Hesaplanıyor..." : "📜 Haritayı Analiz Et"}
+        {yukleniyorMu ? "🔮 Yıldız Konumları Hesaplanıyor & Kaydediliyor..." : "📜 Haritayı Analiz Et"}
       </button>
 
       {haritaRaporu && (
@@ -117,3 +168,5 @@ export default function DogumHaritasi() {
 
 const inputStili = { width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #3b0764', backgroundColor: '#090d16', color: '#f8fafc', boxSizing: 'border-box', marginTop: '5px' };
 const aksiyonButonStili = { backgroundColor: '#581c87', color: '#f8fafc', border: '1px solid #a855f7', padding: '12px 20px', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif' };
+
+export default DogumHaritasi;
