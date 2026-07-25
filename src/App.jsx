@@ -223,7 +223,6 @@ export default function App() {
     return "Genel Gidişat ve Kader";
   };
 
-  // AI ÇÖZÜMÜ GEÇİCİ OLARAK DEVRE DIŞI BIRAKILDI (SABİT METİN + DB KAYDI)
   const falimiYorumla = async () => {
     const acikKartlarVerisi = secilenKartlar.filter(k => k.acik);
     if (acikKartlarVerisi.length !== acilimTuru) {
@@ -245,31 +244,59 @@ export default function App() {
       console.log("IP bilgisi alınamadı:", e);
     }
 
-    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
-    let kartAnalizleri = "";
+    // NVIDIA AI için özel hazırlanmış Mistik Prompt
+    const kartDetaylari = acikKartlarVerisi.map((k, i) => {
+      const konumAdi = acilimTuru === 10 ? keltKonumlari[i] : `${i + 1}. Kart`;
+      return `${konumAdi}: ${k.veri.isim} (${k.ters ? 'Ters' : 'Düz'}) - Temel Anlamı: ${anlamGetir(k.veri, k.ters, acilimTuru === 10 ? i : null)}`;
+    }).join("\n");
 
-    if (acilimTuru === 1) {
-      const k = acikKartlarVerisi[0];
-      kartAnalizleri = `🔮 Açılan tek kartın olan "${k.veri.isim}${k.ters ? ' (Ters)' : ''}", durumunun net aynasıdır: ${anlamGetir(k.veri, k.ters)}\n\n`;
-    } else if (acilimTuru === 3) {
-      const k1 = acikKartlarVerisi[0];
-      const k2 = acikKartlarVerisi[1];
-      const k3 = acikKartlarVerisi[2];
-      kartAnalizleri = `🕰️ Geçmişinden gelen "${k1.veri.isim}${k1.ters ? ' (Ters)' : ''}" enerjisi (${anlamGetir(k1.veri, k1.ters)}), şu an merkezindeki "${k2.veri.isim}${k2.ters ? ' (Ters)' : ''}" gerçeğiyle yüzleşmeni sağlıyor (${anlamGetir(k2.veri, k2.ters)}). Tüm bu süreç, geleceğinde filizlenecek olan "${k3.veri.isim}${k3.ters ? ' (Ters)' : ''}" kartına bağlanıyor: ${anlamGetir(k3.veri, k3.ters)}\n\n`;
-    } else if (acilimTuru === 10) {
-      kartAnalizleri = acikKartlarVerisi.map((k, i) => `✦ ${keltKonumlari[i]}:\nBeliren "${k.veri.isim}${k.ters ? ' (Ters)' : ''}" kartı der ki: ${anlamGetir(k.veri, k.ters, i)}`).join("\n\n") + "\n\n";
+    const aiPrompt = `Sen derin sezgileri olan, bilge ve mistik bir Tarot ve Astroloji yorumcususun.
+
+Danışan Bilgileri:
+- İsim: ${kullaniciAdi || 'Misafir'}
+- Güneş Burcu: ${kullaniciBurcu}
+- Yükselen Burcu: ${yukselenBurcu}
+- Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}
+- Odaklandığı Konu: ${odakMetniGetir()}
+
+Açılan Tarot Kartları:
+${kartDetaylari}
+
+Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklandığı konuyu bütünleştirerek samimi, etkileyici, detaylı ve yol gösterici bir Tarot yorumu yap. Yanıtı Türkçe ve paragraflar halinde ver.`;
+
+    let gelenAiYaniti = "";
+
+    try {
+      // Vercel Serverless Endpoint'ine Bağlantı
+      const response = await fetch('/api/Ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: aiPrompt })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.answer) {
+        gelenAiYaniti = data.answer;
+      } else {
+        gelenAiYaniti = "Mistik enerjilerde geçici bir dalgalanma oldu: " + (data.error || "Lütfen tekrar deneyin.");
+      }
+    } catch (err) {
+      console.error("AI İstek Hatası:", err);
+      gelenAiYaniti = "Kehanet bağlantısı kurulurken bir hata oluştu. Lütfen bağlantınızı kontrol edin.";
     }
 
+    let girisCumlesi = `Sevgili ${kullaniciAdi || 'Misafir'} (Güneş: ${kullaniciBurcu}, Yükselen: ${yukselenBurcu}, Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}), ruhunun derinliklerinde saklı olan enerjiler ve özellikle yoğunlaştığın "${odakMetniGetir()}" konusu için mistik kader çarkı döndü.\n\n`;
+    
     const kartListesi = acikKartlarVerisi.map((k, i) => 
       `${keltKonumlari[i] || (i+1 + ". Kart")}: ${k.veri.isim} ${k.ters ? '(Ters)' : ''}`
     ).join(", ");
 
-    const sabitAiYaniti = "AI yorumu şuan yapılamamaktadır.";
-    
-    setAiYorumu(`${girisCumlesi}${kartAnalizleri}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${sabitAiYaniti}`);
+    // Ekrana Yorumu Yansıtma
+    setAiYorumu(`${girisCumlesi}\n--- 🔮 Mistik Rehberin Analizi ---\n\n${gelenAiYaniti}`);
 
     try {
-      // SUPABASE VERİTABANINA KAYIT ATMA
+      // SUPABASE VERİTABANINA GERÇEK AI CEVABINI KAYDETME
       await supabase.from('fal_gecmisi').insert([
         {
           kullanici_adi: kullaniciAdi,
@@ -280,7 +307,7 @@ export default function App() {
           yukselen_burcu: yukselenBurcu,
           odak_konusu: odakKonusu,
           secilen_kartlar: kartListesi,
-          ai_yaniti: sabitAiYaniti,
+          ai_yaniti: gelenAiYaniti,
           ip_adresi: ipBilgisi,
           ulke: ulkeBilgisi,
           sehir: sehirBilgisi,
