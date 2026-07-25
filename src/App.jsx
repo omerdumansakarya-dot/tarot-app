@@ -333,7 +333,7 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
 
     setYukleniyorMu(false);
   };
-  
+
   const herkesAcildiMi = secilenKartlar.length === acilimTuru && secilenKartlar.every(k => k.acik);
 
   return (
@@ -607,26 +607,30 @@ Lütfen bu kartların enerjilerini, danışanın burç kombinasyonunu ve odaklan
         )}
       </div>
 
-      {odaklananKart && (
-        <div className="kart-modal-bg" onClick={() => setOdaklananKart(null)}>
-          <div className="kart-modal-box" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setOdaklananKart(null)} style={{ position: 'absolute', top: '15px', right: '15px', background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '20px', cursor: 'pointer' }}>✖</button>
-            <span style={{ color: '#c084fc', fontSize: '12px', fontFamily: '"Cinzel", serif', letterSpacing: '1px' }}>{odaklananKart.konumAd}</span>
-            <h3 style={{ margin: '5px 0 15px 0', color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '22px' }}>{odaklananKart.veri.isim} {odaklananKart.ters ? '(Ters)' : ''}</h3>
-            
-            <div style={{ width: '180px', height: '300px', margin: '0 auto 20px auto', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)', boxShadow: '0 10px 25px rgba(0,0,0,0.8)' }}>
-              <img src={`/assets/cards${odaklananKart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover', transform: odaklananKart.ters ? 'rotate(180deg)' : 'none' }} />
-            </div>
+     {odaklananKart && (
+  <div className="kart-modal-bg" onClick={() => setOdaklananKart(null)}>
+    <div className="kart-modal-box" onClick={(e) => e.stopPropagation()}>
+      <button onClick={() => setOdaklananKart(null)} style={{ position: 'absolute', top: '15px', right: '15px', background: 'transparent', border: 'none', color: '#cbd5e1', fontSize: '20px', cursor: 'pointer' }}>✖</button>
+      <span style={{ color: '#c084fc', fontSize: '12px', fontFamily: '"Cinzel", serif', letterSpacing: '1px' }}>{odaklananKart.konumAd}</span>
+      <h3 style={{ margin: '5px 0 15px 0', color: '#eab308', fontFamily: '"Cinzel", serif', fontSize: '22px' }}>{odaklananKart.veri.isim} {odaklananKart.ters ? '(Ters)' : ''}</h3>
+      
+      <div style={{ width: '180px', height: '300px', margin: '0 auto 20px auto', borderRadius: '10px', padding: '4px', background: 'linear-gradient(135deg, #eab308 0%, #3b0764 100%)', boxShadow: '0 10px 25px rgba(0,0,0,0.8)' }}>
+        <img src={`/assets/cards${odaklananKart.veri.resim}`} style={{ width: '100%', height: '100%', borderRadius: '8px', objectFit: 'cover', transform: odaklananKart.ters ? 'rotate(180deg)' : 'none' }} />
+      </div>
 
-            <div style={{ maxHeight: '200px', overflowY: 'auto', textAlign: 'left', padding: '10px', background: '#090d16', borderRadius: '8px', border: '1px solid #334155' }}>
-              <p style={{ margin: 0, color: '#f1f5f9', fontSize: '14px', lineHeight: '1.6' }}>
-                {anlamGetir(odaklananKart.veri, odaklananKart.ters, acilimTuru === 10 ? keltKonumlari.indexOf(odaklananKart.konumAd) : null)}
-              </p>
-            </div>
-            <p style={{ margin: '15px 0 0 0', color: '#64748b', fontSize: '12px' }}>✦ Pencereyi kapatmak için dışarı veya çarpıya tıkla ✦</p>
-          </div>
-        </div>
-      )}
+      <div style={{ maxHeight: '200px', overflowY: 'auto', textAlign: 'left', padding: '10px', background: '#090d16', borderRadius: '8px', border: '1px solid #334155' }}>
+        <p style={{ margin: 0, color: '#f1f5f9', fontSize: '14px', lineHeight: '1.6' }}>
+          {anlamGetir(odaklananKart.veri, odaklananKart.ters, acilimTuru === 10 ? keltKonumlari.indexOf(odaklananKart.konumAd) : null)}
+        </p>
+      </div>
+
+      {/* MODAL İÇİ REKLAM BÖLÜMÜ */}
+      <AdBanner dataAdSlot="1234567890" dataAdFormat="fluid" />
+
+      <p style={{ margin: '15px 0 0 0', color: '#64748b', fontSize: '12px' }}>✦ Pencereyi kapatmak için dışarı veya çarpıya tıkla ✦</p>
+    </div>
+  </div>
+)}
 
     </div>
   );
