@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
     if (!apiResponse.ok) {
       return res.status(apiResponse.status).json({ 
-        error: data?.detail || data?.message || 'NVIDIA API hatası oluştu.' 
+        error: data?.detail || data?.message || 'Yapay zeka bu soruya şu an yanıt veremiyor. Lütfen sorunuzu biraz daha farklı şekilde sormayı deneyin.' 
       });
     }
 
