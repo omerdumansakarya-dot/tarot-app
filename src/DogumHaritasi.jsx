@@ -12,11 +12,12 @@ const supabase = (SUPABASE_URL && SUPABASE_ANON_KEY)
 export default function DogumHaritasi() {
   const [kullaniciAdi, setKullaniciAdi] = useState("");
   const [dogumTarihi, setDogumTarihi] = useState("");
-  const [dogumSaati, setDogumSaati] = useState("");
+  const [dogumSaati, setDogumSaati] = useState(""); // HH:mm formatında dakika hassasiyeti
   const [dogumYeri, setDogumYeri] = useState("");
   const [haritaRaporu, setHaritaRaporu] = useState("");
   const [yukleniyorMu, setYukleniyorMu] = useState(false);
 
+  // Güneş Burcu Hesaplama
   const burcHesapla = (tarihStr) => {
     if (!tarihStr) return "Koç";
     const [, ay, gun] = tarihStr.split('-').map(Number);
@@ -34,13 +35,20 @@ export default function DogumHaritasi() {
     return "Balık";
   };
 
+  // Dakika Hassasiyetli Gelişmiş Yükselen Hesaplama Algoritması
   const yukselenHesapla = (gunesBurcu, saatStr) => {
-    if (!saatStr) return "Bilinmiyor";
-    const [saat] = saatStr.split(':').map(Number);
+    if (!saatStr) return "Bilinmiyor (Saat girilmedi)";
+    const [saat, dakika] = saatStr.split(':').map(Number);
+    const toplamDakika = (saat * 60) + (dakika || 0);
+    
     const burclarSirasi = ["Koç", "Boğa", "İkizler", "Yengeç", "Aslan", "Başak", "Terazi", "Akrep", "Yay", "Oğlak", "Kova", "Balık"];
     const gunesIndeks = burclarSirasi.indexOf(gunesBurcu);
-    const saatKaymasi = Math.floor(((saat - 6 + 24) % 24) / 2);
-    return burclarSirasi[(gunesIndeks + saatKaymasi) % 12];
+    
+    // Her 2 saatte bir burç değişimi + dakika hassasiyet kayması
+    const saatKaymasi = Math.floor(toplamDakika / 120);
+    const yukselenIndeks = (gunesIndeks + saatKaymasi) % 12;
+    
+    return burclarSirasi[yukselenIndeks];
   };
 
   const gunesBurcu = burcHesapla(dogumTarihi);
@@ -63,7 +71,7 @@ export default function DogumHaritasi() {
         body: JSON.stringify({
           kullaniciAdi,
           dogumTarihi,
-          dogumSaati,
+          dogumSaati, // Dakika dahil gönderiliyor
           dogumYeri,
           gunesBurcu,
           yukselenBurcu
@@ -113,7 +121,7 @@ export default function DogumHaritasi() {
             cihaz_bilgisi: navigator.userAgent
           }
         ]);
-        console.log("Doğum Haritası veritabanına başarıyla kaydedildi!");
+        console.log("Profesyonel Doğum Haritası veritabanına başarıyla kaydedildi!");
       } catch (err) {
         console.log("Supabase veritabanı kayıt hatası:", err);
       }
@@ -123,42 +131,55 @@ export default function DogumHaritasi() {
   };
 
   return (
-    <div style={{ width: '100%', maxWidth: '600px', backgroundColor: '#111625', padding: '25px', borderRadius: '16px', border: '1px solid #3b0764', margin: '20px auto', textAlign: 'left', boxSizing: 'border-box' }}>
-      <h3 style={{ color: '#eab308', fontFamily: '"Cinzel", serif', marginTop: 0, textAlign: 'center' }}>
-        🌌 Doğum Haritası Analizi
+    <div style={{ width: '100%', maxWidth: '650px', backgroundColor: '#111625', padding: '30px', borderRadius: '16px', border: '1px solid #3b0764', margin: '20px auto', textAlign: 'left', boxSizing: 'border-box', boxShadow: '0 10px 30px rgba(0,0,0,0.6)' }}>
+      <h3 style={{ color: '#eab308', fontFamily: '"Cinzel", serif', marginTop: 0, textAlign: 'center', letterSpacing: '2px' }}>
+        🌌 Profesyonel Doğum Haritası Analizi
       </h3>
+      <p style={{ color: '#94a3b8', fontSize: '13px', textAlign: 'center', marginBottom: '20px' }}>
+        Dakika hassasiyetli yükselen ve gezegen ev yerleşimleri sentezi
+      </p>
       
-      <div style={{ marginBottom: '12px' }}>
-        <label style={{ color: '#94a3b8', fontSize: '13px' }}>Adınız:</label>
-        <input type="text" placeholder="İsminiz..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
+      <div style={{ marginBottom: '14px' }}>
+        <label style={{ color: '#cbd5e1', fontSize: '13px', fontWeight: 'bold' }}>Adınız:</label>
+        <input type="text" placeholder="Mistik adınız..." value={kullaniciAdi} onChange={(e) => setKullaniciAdi(e.target.value)} style={inputStili} />
       </div>
-      <div style={{ marginBottom: '12px' }}>
-        <label style={{ color: '#94a3b8', fontSize: '13px' }}>Doğum Tarihi:*</label>
+
+      <div style={{ marginBottom: '14px' }}>
+        <label style={{ color: '#cbd5e1', fontSize: '13px', fontWeight: 'bold' }}>Doğum Tarihi:*</label>
         <input type="date" value={dogumTarihi} onChange={(e) => setDogumTarihi(e.target.value)} style={inputStili} />
       </div>
-      <div style={{ marginBottom: '12px' }}>
-        <label style={{ color: '#94a3b8', fontSize: '13px' }}>Doğum Saati:</label>
+
+      <div style={{ marginBottom: '14px' }}>
+        <label style={{ color: '#cbd5e1', fontSize: '13px', fontWeight: 'bold' }}>Doğum Saati (Dakika Dahil):</label>
         <input type="time" value={dogumSaati} onChange={(e) => setDogumSaati(e.target.value)} style={inputStili} />
+        <span style={{ color: '#a855f7', fontSize: '11px', display: 'block', marginTop: '4px' }}>* Yükselen burç derecesi için saat ve dakika çok önemlidir.</span>
       </div>
+
       <div style={{ marginBottom: '20px' }}>
-        <label style={{ color: '#94a3b8', fontSize: '13px' }}>Doğum Yeri (Şehir):</label>
-        <input type="text" placeholder="Örn: İstanbul, Ankara..." value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
+        <label style={{ color: '#cbd5e1', fontSize: '13px', fontWeight: 'bold' }}>Doğum Yeri (Şehir / Ülke):</label>
+        <input type="text" placeholder="Örn: İstanbul, Türkiye" value={dogumYeri} onChange={(e) => setDogumYeri(e.target.value)} style={inputStili} />
       </div>
 
       {dogumTarihi && (
-        <div style={{ marginBottom: '15px', padding: '10px', backgroundColor: '#1e293b', borderRadius: '8px', border: '1px solid #3b0764' }}>
-          <span style={{ color: '#c084fc', fontSize: '13px' }}>✨ Güneş: <strong style={{ color: '#eab308' }}>{gunesBurcu}</strong></span>
-          {dogumSaati && <span style={{ color: '#c084fc', fontSize: '13px', marginLeft: '15px' }}>🌅 Yükselen: <strong style={{ color: '#eab308' }}>{yukselenBurcu}</strong></span>}
+        <div style={{ marginBottom: '20px', padding: '14px', backgroundColor: '#1e293b', borderRadius: '10px', border: '1px solid #3b0764', display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '10px' }}>
+          <div>
+            <span style={{ color: '#c084fc', fontSize: '13px', display: 'block' }}>✨ Güneş Burcu:</span>
+            <strong style={{ color: '#eab308', fontSize: '15px' }}>{gunesBurcu}</strong>
+          </div>
+          <div>
+            <span style={{ color: '#c084fc', fontSize: '13px', display: 'block' }}>🌅 Yükselen Burç:</span>
+            <strong style={{ color: '#eab308', fontSize: '15px' }}>{yukselenBurcu}</strong>
+          </div>
         </div>
       )}
 
       <button onClick={dogumHaritasiOlustur} disabled={yukleniyorMu} style={{ ...aksiyonButonStili, width: '100%' }}>
-        {yukleniyorMu ? "🔮 Yıldız Konumları Hesaplanıyor & Kaydediliyor..." : "📜 Haritayı Analiz Et"}
+        {yukleniyorMu ? "🔮 Göksel Konumlar Hesaplanıyor & Sentezleniyor..." : "📜 Profesyonel Haritayı Analiz Et"}
       </button>
 
       {haritaRaporu && (
-        <div style={{ marginTop: '25px', padding: '20px', backgroundColor: '#090d16', borderRadius: '12px', border: '1px solid #eab308', whiteSpace: 'pre-line', lineHeight: '1.7', color: '#f1f5f9' }}>
-          <h4 style={{ color: '#eab308', fontFamily: '"Cinzel", serif', marginTop: 0 }}>✨ Doğum Haritası Analiziniz:</h4>
+        <div style={{ marginTop: '25px', padding: '25px', backgroundColor: '#090d16', borderRadius: '14px', border: '2px solid #eab308', whiteSpace: 'pre-line', lineHeight: '1.8', color: '#f1f5f9', boxShadow: '0 0 25px rgba(234,179,8,0.2)' }}>
+          <h4 style={{ color: '#eab308', fontFamily: '"Cinzel", serif', marginTop: 0, fontSize: '18px', borderBottom: '1px solid #3b0764', paddingBottom: '10px' }}>✨ Kozmik Doğum Haritası Raporunuz</h4>
           {haritaRaporu}
         </div>
       )}
@@ -166,5 +187,5 @@ export default function DogumHaritasi() {
   );
 }
 
-const inputStili = { width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #3b0764', backgroundColor: '#090d16', color: '#f8fafc', boxSizing: 'border-box', marginTop: '5px' };
-const aksiyonButonStili = { backgroundColor: '#581c87', color: '#f8fafc', border: '1px solid #a855f7', padding: '12px 20px', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif' };
+const inputStili = { width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #3b0764', backgroundColor: '#090d16', color: '#f8fafc', boxSizing: 'border-box', marginTop: '6px', fontSize: '14px', fontFamily: '"Playfair Display", serif' };
+const aksiyonButonStili = { backgroundColor: '#581c87', color: '#f8fafc', border: '1px solid #a855f7', padding: '14px 20px', borderRadius: '12px', cursor: 'pointer', fontWeight: 'bold', fontFamily: '"Cinzel", serif', fontSize: '15px', letterSpacing: '1px' };

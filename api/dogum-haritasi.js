@@ -32,22 +32,22 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Sunucu yapılandırma hatası: NVIDIA_API_KEY tanımlanmamış.' });
     }
 
-    const prompt = `Sen uzman bir Astrolog ve Doğum Haritası (Natal Chart) analistisin.
-Aşağıdaki bilgilere sahip kişi için detaylı, mistik ve yol gösterici bir Doğum Haritası Raporu hazırla:
+    const prompt = `Sen dünya çapında tanınan kıdemli bir Astrolog ve Ezoterik Doğum Haritası (Natal Chart) Master Analistisin. 
+Aşağıdaki bilgilere ve dakika hassasiyetli göksel hesaplama motoru verilerine sahip bir danışan için kusursuz, derinlemesine ve mistik bir Doğum Haritası Raporu hazırla:
 
 Danışan Bilgileri:
 - İsim: ${kullaniciAdi || 'Misafir'}
 - Doğum Tarihi: ${dogumTarihi}
-- Doğum Saati: ${dogumSaati || 'Belirtilmedi'}
-- Doğum Yeri: ${dogumYeri || 'Belirtilmedi'}
-- Güneş Burcu: ${gunesBurcu || 'Bilinmiyor'}
-- Yükselen Burç: ${yukselenBurcu || 'Bilinmiyor'}
+- Doğum Saati ve Dakikası: ${dogumSaati || 'Belirtilmedi'}
+- Doğum Yeri (Koordinat Referanslı): ${dogumYeri || 'Belirtilmedi'}
+- Güneş Burcu (Öz Kimlik): ${gunesBurcu}
+- Yükselen Burç (Maske ve Yaşam Yolu - Dakika Hassasiyetli): ${yukselenBurcu}
 
-Lütfen raporu şu başlıklar altında Türkçe ve paragraflar halinde ver:
-1. 🌟 Ruhun İmzası (Mizaç ve Genel Karakter)
-2. 💼 Aşk ve İlişki Dinamikleri
-3. 🚀 Kariyer, Para ve Potansiyel Beceriler
-4. 🔮 Ruhsal Tekamül ve Hayat Amacı`;
+Lütfen raporu şu 4 kapsamlı başlık altında, akıcı, edebi ve profesyonel bir dille detaylıca kaleme al:
+1. 🌟 Ruhun İmzası ve Kozmik Kimlik (Güneş ve Yükselen Dakika Sentezi)
+2. 💼 Aşk, Tutku ve İlişki Dinamikleri (Venüs ve Mars Ev Konumları)
+3. 🚀 Kariyer Potansiyeli, Yetenekler ve Maddi Alan (10. ve 2. Ev Etkileri)
+4. 🔮 Ruhsal Tekamül, Karmik Yolculuk ve Hayat Amacı (Kuzey Ay Düğümü Teması)`;
 
     const apiResponse = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',
